@@ -1,9 +1,9 @@
 import { useContext, useMemo } from 'react';
 import { TouchableHighlight } from 'react-native';
 
-import SettingsContext from '@config/SettingsContext';
-
 import Icon from '@components/icon';
+
+import SettingsContext from '@config/SettingsContext';
 
 import { colorWithOpacity } from '@utility/helpers';
 import Colors from '@themes/colors';

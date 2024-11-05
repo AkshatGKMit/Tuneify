@@ -40,3 +40,25 @@ export const Fonts = {
   Podkova: 'Podkova',
   Texturina: 'Texturina',
 } as const;
+
+export const FontSize = {
+  displayLarge: 48,
+  displayMedium: 36,
+  displaySmall: 30,
+
+  headlineLarge: 28,
+  headlineMedium: 24,
+  headlineSmall: 20,
+
+  titleLarge: 24,
+  titleMedium: 20,
+  titleSmall: 15,
+
+  labelLarge: 20,
+  labelMedium: 17,
+  labelSmall: 14,
+
+  bodyLarge: 16,
+  bodyMedium: 13,
+  bodySmall: 10,
+} as const;

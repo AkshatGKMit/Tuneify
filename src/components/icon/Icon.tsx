@@ -35,12 +35,14 @@ const Icon = ({ family, name, style }: IconProps) => {
 
   const SelectedIcon = iconFamilies[family];
 
-  return SelectedIcon ? (
+  if (!SelectedIcon) return null;
+
+  return (
     <SelectedIcon
       name={name}
       style={[styles.icon, style]}
     />
-  ) : null;
+  );
 };
 
 export default Icon;
