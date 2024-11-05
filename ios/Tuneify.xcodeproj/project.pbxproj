@@ -8,13 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* TuneifyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TuneifyTests.m */; };
+		08B078D54D064A8A8844B75C /* PlayfairDisplay.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0EBC320D8194FA0A3907576 /* PlayfairDisplay.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-Tuneify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-Tuneify.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		4451C03C23D64D0BB3C2F0A5 /* Podkova.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E51469EBBDF4505A983BCD8 /* Podkova.ttf */; };
+		6DA3D2196E66417581452A0B /* lovelyMamma.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F01C57CAEBC4F1A81A0109C /* lovelyMamma.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-Tuneify-TuneifyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Tuneify-TuneifyTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		BD5C44A046185F3E8E6B6BDF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		C1CEF7DD9AC34C9AAA7B6A11 /* Cornerita.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68F8C34C3EC642B9BB8166A6 /* Cornerita.ttf */; };
+		E4A2C76D14BC4A8A8D12F1DE /* Texturina.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 714244A4540B4F479263E097 /* Texturina.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,11 +45,16 @@
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Tuneify/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-Tuneify-TuneifyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tuneify-TuneifyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-Tuneify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tuneify.debug.xcconfig"; path = "Target Support Files/Pods-Tuneify/Pods-Tuneify.debug.xcconfig"; sourceTree = "<group>"; };
+		4E51469EBBDF4505A983BCD8 /* Podkova.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Podkova.ttf; path = ../src/assets/fonts/Podkova.ttf; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Tuneify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tuneify.release.xcconfig"; path = "Target Support Files/Pods-Tuneify/Pods-Tuneify.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Tuneify-TuneifyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tuneify-TuneifyTests.debug.xcconfig"; path = "Target Support Files/Pods-Tuneify-TuneifyTests/Pods-Tuneify-TuneifyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-Tuneify.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tuneify.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68F8C34C3EC642B9BB8166A6 /* Cornerita.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Cornerita.ttf; path = ../src/assets/fonts/Cornerita.ttf; sourceTree = "<group>"; };
+		6F01C57CAEBC4F1A81A0109C /* lovelyMamma.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = lovelyMamma.ttf; path = ../src/assets/fonts/lovelyMamma.ttf; sourceTree = "<group>"; };
+		714244A4540B4F479263E097 /* Texturina.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Texturina.ttf; path = ../src/assets/fonts/Texturina.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Tuneify/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Tuneify-TuneifyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tuneify-TuneifyTests.release.xcconfig"; path = "Target Support Files/Pods-Tuneify-TuneifyTests/Pods-Tuneify-TuneifyTests.release.xcconfig"; sourceTree = "<group>"; };
+		B0EBC320D8194FA0A3907576 /* PlayfairDisplay.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = PlayfairDisplay.ttf; path = ../src/assets/fonts/PlayfairDisplay.ttf; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -109,6 +119,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3827070A9CC7418C80DCAC8B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				68F8C34C3EC642B9BB8166A6 /* Cornerita.ttf */,
+				B0EBC320D8194FA0A3907576 /* PlayfairDisplay.ttf */,
+				4E51469EBBDF4505A983BCD8 /* Podkova.ttf */,
+				714244A4540B4F479263E097 /* Texturina.ttf */,
+				6F01C57CAEBC4F1A81A0109C /* lovelyMamma.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +148,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				3827070A9CC7418C80DCAC8B /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -250,6 +274,11 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				BD5C44A046185F3E8E6B6BDF /* PrivacyInfo.xcprivacy in Resources */,
+				C1CEF7DD9AC34C9AAA7B6A11 /* Cornerita.ttf in Resources */,
+				08B078D54D064A8A8844B75C /* PlayfairDisplay.ttf in Resources */,
+				4451C03C23D64D0BB3C2F0A5 /* Podkova.ttf in Resources */,
+				E4A2C76D14BC4A8A8D12F1DE /* Texturina.ttf in Resources */,
+				6DA3D2196E66417581452A0B /* lovelyMamma.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,6 +553,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -551,6 +581,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CXX = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -570,6 +601,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -604,6 +637,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -631,6 +665,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CXX = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -643,6 +678,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
