@@ -1,0 +1,25 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Cornerita.ttf",
+      "sha1": "26d8feb983693db443eb1ddb11102defcd1303ca"
+    },
+    {
+      "path": "src/assets/fonts/PlayfairDisplay.ttf",
+      "sha1": "96a2e660869a872971935d18105d64eadd693ddb"
+    },
+    {
+      "path": "src/assets/fonts/Podkova.ttf",
+      "sha1": "8cefe9f35a56ee71361621ed2b8e540431e36bcd"
+    },
+    {
+      "path": "src/assets/fonts/Texturina.ttf",
+      "sha1": "8be6cd3f3173867a86cc45e8ad11c809f9fb880f"
+    },
+    {
+      "path": "src/assets/fonts/lovelyMamma.ttf",
+      "sha1": "6324c069af15c95927b42fe521b4d74d661f7b73"
+    }
+  ]
+}
