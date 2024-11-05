@@ -8,6 +8,7 @@ declare global {
     accentColor: string;
     statusBarColor: string;
     screenBGColor: string;
+    screenGradient: string[];
     primaryTextColor: string;
     accentTextColor: string;
     defaultIconColor: string;

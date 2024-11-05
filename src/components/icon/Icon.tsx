@@ -12,6 +12,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import SettingsContext from '@config/SettingsContext';
+
 import ThemedStyles from './style';
 
 const iconFamilies = {

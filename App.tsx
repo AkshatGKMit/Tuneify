@@ -18,7 +18,7 @@ const App = () => {
 };
 
 const Main = () => {
-  const { theme, isDark, switchTheme } = useContext(SettingsContext);
+  const { theme } = useContext(SettingsContext);
 
   const globalStyles = GlobalThemedStyles(theme);
 

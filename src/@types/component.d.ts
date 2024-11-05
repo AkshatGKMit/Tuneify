@@ -5,18 +5,22 @@ import { IconFamily } from '@constants/constants';
 declare global {
   type IconFamilyType = keyof typeof IconFamily;
 
-  type IconProps = {
+  interface IconProps {
     family: IconFamilyType;
     name: string;
     style?: StyleProp<TextStyle>;
-  };
+  }
 
-  type IconBtnProps = {
+  interface IconBtnProps {
     family: IconFamilyType;
     name: string;
     iconStyle?: StyleProp<TextStyle>;
     containerStyle?: StyleProp<ViewStyle>;
     underlayColor?: string;
     onPress?: (ev?: GestureResponderEvent) => void;
-  };
+  }
+
+  interface GradientScreenProps {
+    children: ReactNode;
+  }
 }
