@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 import { Dimensions, ScaledSize, useColorScheme } from 'react-native';
 
-import StorageManager from '@utility/storage';
-import { Fonts, ThemeColorModes } from '@themes/index';
+import StorageManager, { StorageKey } from '@utility/storage';
+import { Fonts, ThemeColorModes, ThemeMode } from '@themes/index';
 
 const { height, width } = Dimensions.get('window');
 
@@ -39,24 +39,27 @@ export const SettingsContextProvider = ({ children }: ContextProviderProps) => {
     });
   };
 
-  const switchTheme = async (themeMode: ThemeMode) => {
+  const switchTheme = async (themeMode: ThemeModeType) => {
     setTheme(ThemeColorModes[themeMode]);
-    setIsDark(themeMode === 'dark');
-    StorageManager.saveStoreValue('theme', JSON.stringify(themeMode));
+    setIsDark(themeMode === ThemeMode.dark);
+    StorageManager.saveStoreValue(StorageKey.theme, JSON.stringify(themeMode));
   };
 
   const changeFont = async (font: Font) => {
     setFont(font);
-    StorageManager.saveStoreValue('font', JSON.stringify(font));
+    StorageManager.saveStoreValue(StorageKey.font, JSON.stringify(font));
   };
 
   const loadStore = async () => {
     const storedThemeMode =
-      (await StorageManager.getStoreValue<ThemeMode>('theme')) ?? colorScheme ?? 'light';
+      (await StorageManager.getStoreValue<ThemeModeType>(StorageKey.theme)) ??
+      colorScheme ??
+      'light';
     setTheme(ThemeColorModes[storedThemeMode]);
-    setIsDark(storedThemeMode === 'dark');
+    setIsDark(storedThemeMode === ThemeMode.dark);
 
-    const storedFont = (await StorageManager.getStoreValue<Font>('font')) ?? Fonts.LovelyMamma;
+    const storedFont =
+      (await StorageManager.getStoreValue<Font>(StorageKey.font)) ?? Fonts.LovelyMamma;
     setFont(storedFont);
   };
 

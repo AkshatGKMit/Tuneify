@@ -1,6 +1,11 @@
 import { colorWithOpacity } from '@utility/helpers';
 import Colors from './colors';
 
+export const ThemeMode = {
+  light: 'light',
+  dark: 'dark',
+} as const;
+
 export const ThemeColorModes: ThemeColorModes = {
   light: {
     accentColor: Colors.accent.light,

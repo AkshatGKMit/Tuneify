@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { StorageKey } from '@utility/storage';
 
 declare global {
   interface ContextProviderProps {
@@ -14,10 +15,10 @@ declare global {
     dimensions: WindowDimensions;
     theme: ThemeColors;
     isDark: boolean;
-    switchTheme: (themeMode: ThemeMode) => void;
+    switchTheme: (themeMode: ThemeModeType) => void;
     font: Font;
     changeFont: (font: Font) => void;
   }
 
-  type StorageKey = 'theme' | 'font';
+  type StorageKeyType = keyof typeof StorageKey;
 }

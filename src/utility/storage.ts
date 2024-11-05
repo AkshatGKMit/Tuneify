@@ -1,7 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+export const StorageKey = {
+  theme: 'theme',
+  font: 'font',
+} as const;
+
 class StorageManager {
-  public static async getStoreValue<T>(key: StorageKey): Promise<T | undefined> {
+  public static async getStoreValue<T>(key: StorageKeyType): Promise<T | undefined> {
     try {
       const item = await AsyncStorage.getItem(key);
 
@@ -16,7 +21,7 @@ class StorageManager {
     }
   }
 
-  public static async saveStoreValue(key: StorageKey, value: string) {
+  public static async saveStoreValue(key: StorageKeyType, value: string) {
     await AsyncStorage.setItem(key, value);
   }
 }

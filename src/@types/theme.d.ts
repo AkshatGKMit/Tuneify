@@ -1,7 +1,7 @@
-import { Fonts } from '@themes/index';
+import { Fonts, ThemeMode } from '@themes/index';
 
 declare global {
-  type ThemeMode = 'light' | 'dark';
+  type ThemeModeType = keyof typeof ThemeMode;
 
   interface ThemeColors {
     primaryColor: string;
