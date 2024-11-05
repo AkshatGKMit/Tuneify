@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 declare global {
-  interface CtxProviderProps {
+  interface ContextProviderProps {
     children?: ReactNode;
   }
 
@@ -10,7 +10,7 @@ declare global {
     width: number;
   }
 
-  interface SettingsCtxValues {
+  interface SettingsContextValues {
     dimensions: WindowDimensions;
     theme: ThemeColors;
     isDark: boolean;
@@ -20,11 +20,4 @@ declare global {
   }
 
   type StorageKey = 'theme' | 'font';
-
-  interface StorageCtxValues {
-    darkTheme: boolean;
-    changeTheme: (dark: boolean) => void;
-    storedFont: Font;
-    changeStoredFont: (font: Font) => void;
-  }
 }

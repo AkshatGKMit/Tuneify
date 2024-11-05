@@ -1,11 +1,12 @@
 import { createContext, useEffect, useState } from 'react';
 import { Dimensions, ScaledSize, useColorScheme } from 'react-native';
+
 import StorageManager from '@utility/storage';
-import { ThemeColorModes } from '@themes/index';
+import { Fonts, ThemeColorModes } from '@themes/index';
 
 const { height, width } = Dimensions.get('window');
 
-const defaultValue: SettingsCtxValues = {
+const defaultValue: SettingsContextValues = {
   dimensions: { height, width },
   theme: ThemeColorModes.light,
   switchTheme: () => {},
@@ -14,9 +15,9 @@ const defaultValue: SettingsCtxValues = {
   changeFont: () => {},
 };
 
-const SettingsContext = createContext<SettingsCtxValues>(defaultValue);
+const SettingsContext = createContext<SettingsContextValues>(defaultValue);
 
-export const SettingsContextProvider = ({ children }: CtxProviderProps) => {
+export const SettingsContextProvider = ({ children }: ContextProviderProps) => {
   const {
     dimensions: defaultDimensions,
     theme: defaultTheme,
@@ -55,7 +56,7 @@ export const SettingsContextProvider = ({ children }: CtxProviderProps) => {
     setTheme(ThemeColorModes[storedThemeMode]);
     setIsDark(storedThemeMode === 'dark');
 
-    const storedFont = (await StorageManager.getStoreValue<Font>('font')) ?? 'LovelyMamma';
+    const storedFont = (await StorageManager.getStoreValue<Font>('font')) ?? Fonts.LovelyMamma;
     setFont(storedFont);
   };
 
@@ -70,7 +71,7 @@ export const SettingsContextProvider = ({ children }: CtxProviderProps) => {
     };
   }, []);
 
-  const ctxValues: SettingsCtxValues = {
+  const contextValues: SettingsContextValues = {
     dimensions,
     theme,
     switchTheme,
@@ -81,7 +82,7 @@ export const SettingsContextProvider = ({ children }: CtxProviderProps) => {
 
   return (
     <SettingsContext.Provider
-      value={ctxValues}
+      value={contextValues}
       children={children}
     />
   );

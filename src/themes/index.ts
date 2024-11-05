@@ -28,8 +28,8 @@ export const ThemeColorModes: ThemeColorModes = {
 
 export const Fonts = {
   Cornerita: 'Cornerita',
-  LovelyMamma: 'Lovely Mamma',
-  'Playfair Display': 'Playfair Display',
+  LovelyMamma: 'LovelyMamma',
+  PlayfairDisplay: 'PlayfairDisplay',
   Podkova: 'Podkova',
   Texturina: 'Texturina',
 } as const;

@@ -11,7 +11,7 @@ class StorageManager {
 
       return JSON.parse(item) as T;
     } catch (error) {
-      console.log(`Async Storage: Error retrieving item for key "${key}":`, error);
+      console.error(`Async Storage: Error retrieving item for key "${key}":`, error);
       return undefined;
     }
   }
