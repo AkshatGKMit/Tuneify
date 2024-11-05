@@ -3,7 +3,7 @@ import { View, StatusBar } from 'react-native';
 
 import SettingsContext from '@config/SettingsContext';
 
-import { isIos } from '@constants/constants';
+import { isIos } from '@constants';
 import ThemedStyles from './styles';
 
 const PlatformDependentStatusBar = () => {

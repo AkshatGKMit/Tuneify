@@ -1,6 +1,6 @@
 import { GestureResponderEvent, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { IconFamily } from '@constants/constants';
+import { IconFamily } from '@constants';
 
 declare global {
   type IconFamilyType = keyof typeof IconFamily;

@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import { Dimensions, ScaledSize, useColorScheme } from 'react-native';
 
 import StorageManager, { StorageKey } from '@utility/storage';
-import { Fonts, ThemeColorModes, ThemeMode } from '@themes/index';
+import { Fonts, ThemeColorModes, ThemeMode } from '@themes';
 
 const { height, width } = Dimensions.get('window');
 
@@ -11,7 +11,7 @@ const defaultValue: SettingsContextValues = {
   theme: ThemeColorModes.light,
   switchTheme: () => {},
   isDark: false,
-  font: 'LovelyMamma',
+  font: Fonts.LovelyMamma,
   changeFont: () => {},
 };
 

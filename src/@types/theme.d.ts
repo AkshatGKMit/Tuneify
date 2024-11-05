@@ -1,4 +1,4 @@
-import { Fonts, ThemeMode } from '@themes/index';
+import { Fonts, ThemeMode } from '@themes';
 
 declare global {
   type ThemeModeType = keyof typeof ThemeMode;
