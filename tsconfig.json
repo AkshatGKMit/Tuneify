@@ -11,7 +11,7 @@
       "@constants/*": ["src/constants/*"],
       "@navigation/*": ["src/navigation/*"],
       "@network/*": ["src/network/*"],
-      "@screens": ["src/screens"],
+      "@screens/*": ["src/screens/*"],
       "@themes": ["src/themes"],
       "@themes/*": ["src/themes/*"],
       "@utility/*": ["src/utility/*"]

@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
-import { LoginScreen } from '@screens';
+import LoginScreen from '@screens/loginScreen/LoginScreen';
 
 import SettingsContext, { SettingsContextProvider } from '@config/SettingsContext';
 import PlatformDependentStatusBar from '@config/platformDependentStatusBar';
