@@ -19,12 +19,8 @@ async function _post<T, Body, Params = {}>(
   return response.data ?? response;
 }
 
-async function _postAccount<T, Body, Params = {}>(
-  url: string,
-  data: Body,
-  config?: ApiCallConfig<Params>,
-): Promise<ApiCallResponse<T>> {
-  const response = await accountInstance.post(url, data, config);
+async function _postAccount<T, Body>(url: string, data: Body): Promise<ApiCallResponse<T>> {
+  const response = await accountInstance.post(url, data);
 
   return response.data ?? response;
 }
