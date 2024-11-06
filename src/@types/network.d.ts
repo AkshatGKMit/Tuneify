@@ -3,7 +3,7 @@ import { AxiosRequestConfig } from 'axios';
 import ApiConstants from '@network/apiConstants';
 
 declare global {
-  type ContentType = (typeof ApiConstants.contentType)[keyof typeof ApiConstants.contentType];
+  type ContentType = (typeof ApiConstants.contentType)[keyof typeof ApiConstants.contentType]; // Resulting type: 'application/x-www-form-urlencoded' | 'application/json'
 
   interface RequestHeaders extends AxiosRequestConfig {
     Authorization: string;
@@ -32,9 +32,4 @@ declare global {
   }
 
   type ApiCallResponse<T> = ApiCallSuccess<T> | ApiCallFailure;
-
-  interface ApiError {
-    code: number | string;
-    message: string;
-  }
 }
