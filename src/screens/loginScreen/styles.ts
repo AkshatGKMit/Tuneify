@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { FontSize } from '@themes';
+import { FontSize, Colors } from '@themes';
 
 const ThemedStyles = (theme: ThemeColors, dimensions: WindowDimensions) => {
   return useMemo(() => {
@@ -39,6 +39,7 @@ const ThemedStyles = (theme: ThemeColors, dimensions: WindowDimensions) => {
       },
       spotifyIcon: {
         fontSize: FontSize.headlineMedium,
+        color: Colors.black,
       },
       buttonContent: {
         fontSize: FontSize.bodyLarge,

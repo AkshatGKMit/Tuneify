@@ -1,5 +1,5 @@
 import { colorWithOpacity } from '@utility/helpers';
-import Colors from './colors';
+import { Colors } from './colors';
 
 export const ThemeMode = {
   light: 'light',
@@ -64,3 +64,5 @@ export const FontSize = {
   bodyMedium: 13,
   bodySmall: 10,
 } as const;
+
+export { Colors };
