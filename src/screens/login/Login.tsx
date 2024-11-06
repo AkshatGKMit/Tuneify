@@ -25,7 +25,7 @@ import { useContext, useEffect } from 'react';
 import { View, Text, Image, TouchableHighlight, Linking } from 'react-native';
 import Toast from 'react-native-toast-message';
 
-export const LoginScreen = () => {
+const Login = () => {
   const { theme, isDark, dimensions } = useContext(SettingsContext);
 
   const globalStyles = GlobalThemedStyles(theme);
@@ -145,4 +145,4 @@ export const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default Login;
