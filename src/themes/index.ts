@@ -18,6 +18,7 @@ export const ThemeColorModes: ThemeColorModes = {
     screenBGColor: Colors.white,
     screenGradient: [Colors.greyShades.shade100, colorWithOpacity(Colors.greyShades.shade100, 0.3)],
     statusBarColor: Colors.primary.light,
+    textColor: Colors.black,
   },
   dark: {
     accentColor: Colors.accent.dark,
@@ -30,6 +31,7 @@ export const ThemeColorModes: ThemeColorModes = {
     screenBGColor: Colors.black,
     screenGradient: [Colors.greyShades.shade900, colorWithOpacity(Colors.greyShades.shade900, 0.3)],
     statusBarColor: Colors.primary.dark,
+    textColor: Colors.white,
   },
 };
 

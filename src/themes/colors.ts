@@ -6,11 +6,11 @@ const Colors = {
   yellow: '#FFEB3B',
   primary: {
     dark: '#05fde8',
-    light: '#38f5f3',
+    light: '#00b5aa',
   },
   accent: {
     dark: '#d9fff9',
-    light: '#2a7372',
+    light: '#00716e',
   },
   greyShades: {
     shade50: '#FAFAFA',
