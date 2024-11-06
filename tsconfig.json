@@ -7,10 +7,12 @@
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@config/*": ["src/config/*"],
+      "@constants": ["src/constants"],
       "@constants/*": ["src/constants/*"],
       "@navigation/*": ["src/navigation/*"],
       "@network/*": ["src/network/*"],
       "@screens/*": ["src/screens/*"],
+      "@themes": ["src/themes"],
       "@themes/*": ["src/themes/*"],
       "@utility/*": ["src/utility/*"]
     },

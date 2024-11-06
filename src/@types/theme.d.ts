@@ -1,4 +1,4 @@
-import { Fonts, ThemeMode } from '@themes/index';
+import { Fonts, ThemeMode } from '@themes';
 
 declare global {
   type ThemeModeType = keyof typeof ThemeMode;
@@ -8,6 +8,7 @@ declare global {
     accentColor: string;
     statusBarColor: string;
     screenBGColor: string;
+    screenGradient: string[];
     primaryTextColor: string;
     accentTextColor: string;
     defaultIconColor: string;
