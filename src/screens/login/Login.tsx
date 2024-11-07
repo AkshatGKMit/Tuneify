@@ -18,6 +18,7 @@ import {
   parseUrl,
 } from '@utility/helpers';
 import { Colors, GlobalThemedStyles } from '@themes';
+
 import { displayName as appName } from '../../../app.json';
 import ThemedStyles from './styles';
 

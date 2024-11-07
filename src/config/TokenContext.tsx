@@ -52,8 +52,10 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
 
     if (!response.success) {
       setLoading(false);
+
       const { message } = response.error;
       Toast.show({ text1: message });
+
       return;
     }
 
@@ -95,7 +97,6 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
     setLoading(false);
   };
 
-  //* Use Effects
   useEffect(() => {
     loadStore();
   }, []);
@@ -119,7 +120,7 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
 
     const now = new Date();
     now.setSeconds(now.getSeconds() + expiresIn);
-    updateTokenExpirationTimer(`${expiresIn}`);
+    updateTokenExpirationTimer(`${now}`);
     await StorageManager.saveStoreValue(StorageKey.tokenExpiresIn, JSON.stringify(now));
   };
 

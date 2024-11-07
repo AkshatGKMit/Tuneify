@@ -3,11 +3,11 @@ import { SafeAreaView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
+import Login from '@screens/login/Login';
 import LoadingView from '@components/loadingView';
 import SettingsContext, { SettingsContextProvider } from '@config/SettingsContext';
 import TokenContext, { TokenContextProvider } from '@config/TokenContext';
 import PlatformDependentStatusBar from '@config/platformDependentStatusBar';
-import Login from '@screens/login/Login';
 import { GlobalThemedStyles } from '@themes';
 
 const App = () => {
