@@ -11,6 +11,7 @@ declare global {
     screenGradient: string[];
     textColor: string;
     primaryTextColor: string;
+    secondaryTextColor: string;
     accentTextColor: string;
     defaultIconColor: string;
     dividerColor: string;

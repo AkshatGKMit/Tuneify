@@ -24,4 +24,12 @@ export const Colors = {
     shade800: '#303030',
     shade900: '#212121',
   },
+  toast: {
+    infoBackground: '#D5E6FA',
+    infoIconColor: '#2883E5',
+    successBackground: '#E1F5E9',
+    successIconColor: '#67CF9D',
+    errorBackground: '#FCDEDE',
+    errorIconColor: '#F0555A',
+  },
 };

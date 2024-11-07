@@ -1,0 +1,1 @@
+type StringList = string[];
