@@ -66,3 +66,5 @@ export const FontSize = {
   bodyMedium: 13,
   bodySmall: 10,
 } as const;
+
+export { Colors };

@@ -58,7 +58,6 @@ const LibraryCard = ({ type, library }: LibraryCardProps) => {
         source={{ uri: image }}
         style={imageStyles}
       />
-
       <Text
         style={styles.title}
         numberOfLines={1}
@@ -66,7 +65,6 @@ const LibraryCard = ({ type, library }: LibraryCardProps) => {
       >
         {title}
       </Text>
-
       <Text
         style={styles.subtitle}
         numberOfLines={1}

@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 export function colorWithOpacity(color: string, alpha: string | number): string {
   if (!/^#[0-9a-fA-F]{6}$/.test(color)) {
     throw new Error(`Invalid color value "${color}". Must be a six-digit hex code.`);

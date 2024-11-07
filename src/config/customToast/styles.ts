@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { FontSize } from '@themes';
-import Colors from '@themes/colors';
+import { FontSize, Colors } from '@themes';
 
 const ThemedStyles = (theme: ThemeColors) => {
   return useMemo(() => {

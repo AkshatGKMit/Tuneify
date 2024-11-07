@@ -3,13 +3,9 @@ import { View, Text } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import Icon from '@components/icon';
-
 import SettingsContext from '@config/SettingsContext';
-
 import { formatDuration } from '@utility/helpers';
-
 import { IconFamily } from '@constants';
-
 import ThemedStyles from './styles';
 
 const TrackTile = ({ track }: { track: Track }) => {
@@ -32,7 +28,7 @@ const TrackTile = ({ track }: { track: Track }) => {
         style={styles.thumbnail}
       />
 
-      <View style={[styles.info]}>
+      <View style={styles.info}>
         <Text
           style={styles.title}
           numberOfLines={1}

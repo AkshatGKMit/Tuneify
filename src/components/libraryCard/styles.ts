@@ -6,6 +6,7 @@ import { FontSize } from '@themes';
 const ThemedStyles = (theme: ThemeColors, dimensions: WindowDimensions) => {
   return useMemo(() => {
     const { width } = dimensions;
+
     return StyleSheet.create({
       card: {
         flexDirection: 'column',
