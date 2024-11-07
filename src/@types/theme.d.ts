@@ -9,6 +9,8 @@ declare global {
     statusBarColor: string;
     screenBGColor: string;
     screenGradient: string[];
+    textColor: string;
+    secondaryTextColor: string;
     primaryTextColor: string;
     accentTextColor: string;
     defaultIconColor: string;

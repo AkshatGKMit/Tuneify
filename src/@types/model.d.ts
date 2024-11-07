@@ -1,7 +1,7 @@
 interface Image {
   url: string;
-  height?: number;
-  width?: number;
+  height?: number | null;
+  width?: number | null;
 }
 type Images = Image[];
 
@@ -33,7 +33,7 @@ interface Artist {
   images: Images;
   spotifyUrl: string;
   uri: string;
-  popularity: 0;
+  popularity: number;
   followers?: number;
   genres?: StringList;
   href?: string;
@@ -56,7 +56,7 @@ interface Playlist {
   name: string;
   images: Images;
   public: boolean;
-  description?: string;
+  description?: string | null;
   spotifyUrl?: string;
   followers?: number;
   snapshotId?: string;

@@ -14,3 +14,10 @@ export const IconFamily = {
   Octicons: 'Octicons',
   SimpleLineIcons: 'SimpleLineIcons',
 } as const;
+
+export const LibraryType = {
+  artist: 'artist',
+  album: 'album',
+  playlist: 'playlist',
+  track: 'track',
+} as const;

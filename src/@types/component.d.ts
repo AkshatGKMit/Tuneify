@@ -1,6 +1,6 @@
 import { GestureResponderEvent, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { IconFamily } from '@constants';
+import { IconFamily, LibraryType } from '@constants';
 
 declare global {
   type IconFamilyType = keyof typeof IconFamily;
@@ -22,5 +22,12 @@ declare global {
 
   interface GradientScreenProps {
     children: ReactNode;
+  }
+
+  type LibraryType = keyof typeof LibraryType;
+
+  interface LibraryCardProps {
+    type: LibraryType;
+    library: Album | Artist | Playlist | Track;
   }
 }
