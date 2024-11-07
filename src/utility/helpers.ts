@@ -23,6 +23,41 @@ export function colorWithOpacity(color: string, alpha: string | number): string 
   return `${color}${alphaHex}`;
 }
 
+export function appendSearchParams<T extends Record<string, string>>(url: URL, params: T) {
+  Object.entries(params).forEach(([key, value]) => {
+    url.searchParams.append(key, value);
+  });
+}
+
+export function parseUrl<SearchParams = {}>(
+  url: string,
+): { baseUrl: string; searchParams: SearchParams } {
+  const [baseUrl, paramsString] = url.split('?');
+
+  const searchParams: Partial<Record<string, string>> = {};
+
+  if (paramsString) {
+    paramsString.split('&').forEach((param) => {
+      const [key, value] = param.split('=');
+      searchParams[decodeURIComponent(key)] = decodeURIComponent(value || '');
+    });
+  }
+
+  return { baseUrl, searchParams: searchParams as SearchParams };
+}
+
+export function generateRandomString(length: number): string {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
+  }
+
+  return result;
+}
+
 export const formatDuration = (duration: number) => {
   const minutes = String(Math.round(duration / (60 * 1000))).padStart(2, '0');
   const secs = String(duration % (60 * 1000))

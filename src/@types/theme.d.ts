@@ -10,8 +10,8 @@ declare global {
     screenBGColor: string;
     screenGradient: string[];
     textColor: string;
-    secondaryTextColor: string;
     primaryTextColor: string;
+    secondaryTextColor: string;
     accentTextColor: string;
     defaultIconColor: string;
     dividerColor: string;

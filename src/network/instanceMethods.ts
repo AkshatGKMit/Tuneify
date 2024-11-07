@@ -1,4 +1,4 @@
-import instance from './instance';
+import instance, { accountInstance } from './instance';
 
 async function _get<T, Params = {}>(
   url: string,
@@ -15,6 +15,12 @@ async function _post<T, Body, Params = {}>(
   config?: ApiCallConfig<Params>,
 ): Promise<ApiCallResponse<T>> {
   const response = await instance.post(url, data, config);
+
+  return response.data ?? response;
+}
+
+async function _postAccount<T, Body>(url: string, data: Body): Promise<ApiCallResponse<T>> {
+  const response = await accountInstance.post(url, data);
 
   return response.data ?? response;
 }
@@ -39,4 +45,4 @@ async function _delete<T, Body, Params = {}>(
   return response.data ?? response;
 }
 
-export { _get, _delete, _put, _post };
+export { _get, _delete, _put, _post, _postAccount };

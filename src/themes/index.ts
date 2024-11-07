@@ -1,5 +1,5 @@
 import { colorWithOpacity } from '@utility/helpers';
-import Colors from './colors';
+import { Colors } from './colors';
 
 export const ThemeMode = {
   light: 'light',
