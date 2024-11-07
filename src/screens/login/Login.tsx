@@ -145,7 +145,7 @@ const Login = () => {
             <Icon
               family={IconFamily.MaterialCommunityIcons}
               name="spotify"
-              style={[styles.spotifyIcon]}
+              style={styles.spotifyIcon}
             />
             <Text style={styles.buttonContent}>Sign In with Spotify</Text>
           </>

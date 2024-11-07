@@ -31,7 +31,7 @@ const Main = () => {
   return (
     <>
       <PlatformDependentStatusBar />
-      <SafeAreaView style={[globalStyles.screen]}>
+      <SafeAreaView style={globalStyles.screen}>
         <Login />
         {loading ? <LoadingView processInfo={loadingProcessInfo} /> : null}
       </SafeAreaView>
