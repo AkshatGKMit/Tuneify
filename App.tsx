@@ -1,6 +1,9 @@
 import { useContext } from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
+
+import Login from '@screens/login/Login';
 
 import SettingsContext, { SettingsContextProvider } from '@config/SettingsContext';
 import PlatformDependentStatusBar from '@config/platformDependentStatusBar';
@@ -26,8 +29,9 @@ const Main = () => {
     <>
       <PlatformDependentStatusBar />
       <SafeAreaView style={[globalStyles.screen]}>
-        <Text>Tuneify</Text>
+        <Login />
       </SafeAreaView>
+      <Toast />
     </>
   );
 };

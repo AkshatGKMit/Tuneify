@@ -1,13 +1,29 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
-
 import { ErrorHandler } from './errorHandler';
 
 import ApiConstants from './apiConstants';
 
-const { BASE_URL } = ApiConstants;
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { Buffer } from 'buffer';
+
+const {
+  CLIENT_ID,
+  CLIENT_SECRET,
+  BASE_URL,
+  ACCOUNT_BASE_URL,
+  tokenType: { basic },
+  contentType: { form },
+} = ApiConstants;
 
 const instance = axios.create({
   baseURL: BASE_URL,
+});
+
+export const accountInstance = axios.create({
+  baseURL: ACCOUNT_BASE_URL,
+  headers: {
+    'Content-Type': form,
+    Authorization: `${basic} ${Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64')}`,
+  },
 });
 
 function interceptorResponse<T>(
