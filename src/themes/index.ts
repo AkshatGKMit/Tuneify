@@ -1,5 +1,6 @@
 import { colorWithOpacity } from '@utility/helpers';
 import { Colors } from './colors';
+import GlobalThemedStyles from './globalStyles';
 
 export const ThemeMode = {
   light: 'light',
@@ -20,6 +21,7 @@ export const ThemeColorModes: ThemeColorModes = {
     statusBarColor: Colors.primary.light,
     textColor: Colors.black,
     secondaryTextColor: Colors.greyShades.shade600,
+    invertedColor: Colors.black,
   },
   dark: {
     accentColor: Colors.accent.dark,
@@ -34,6 +36,7 @@ export const ThemeColorModes: ThemeColorModes = {
     statusBarColor: Colors.primary.dark,
     textColor: Colors.white,
     secondaryTextColor: Colors.greyShades.shade400,
+    invertedColor: Colors.white,
   },
 };
 
@@ -67,4 +70,4 @@ export const FontSize = {
   bodySmall: 10,
 } as const;
 
-export { Colors };
+export { Colors, GlobalThemedStyles };
