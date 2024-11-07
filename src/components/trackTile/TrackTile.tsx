@@ -1,10 +1,12 @@
-import { useCallback, useContext } from 'react';
+import { useContext } from 'react';
 import { View, Text } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import Icon from '@components/icon';
 
 import SettingsContext from '@config/SettingsContext';
+
+import { formatDuration } from '@utility/helpers';
 
 import { IconFamily } from '@constants';
 
@@ -16,15 +18,6 @@ const TrackTile = ({ track }: { track: Track }) => {
   const styles = ThemedStyles(theme, dimensions);
 
   const { image, name, duration } = track;
-
-  const formattedDuration = useCallback(() => {
-    const minutes = String(Math.round(duration / (60 * 1000))).padStart(2, '0');
-    const secs = String(duration % (60 * 1000))
-      .padStart(2, '0')
-      .substring(0, 2);
-
-    return `${minutes}:${secs}`;
-  }, [duration]);
 
   return (
     <View style={styles.tile}>
@@ -52,7 +45,7 @@ const TrackTile = ({ track }: { track: Track }) => {
           numberOfLines={1}
           ellipsizeMode="tail"
         >
-          {formattedDuration()}
+          {formatDuration(duration)}
         </Text>
       </View>
 
