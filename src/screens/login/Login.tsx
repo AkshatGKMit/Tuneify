@@ -1,32 +1,33 @@
-import GradientScreen from '@components/gradientScreen';
-import Icon from '@components/icon';
+import { useContext, useEffect, useState } from 'react';
+import { View, Text, Image, TouchableHighlight, Linking } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import { Tuneify } from '@assets/images';
-
+import GradientScreen from '@components/gradientScreen';
+import Icon from '@components/icon';
+import LoadingView from '@components/loadingView';
 import SettingsContext from '@config/SettingsContext';
-
+import TokenContext from '@config/TokenContext';
+import { IconFamily, isIos } from '@constants';
 import { _post, _postAccount } from '@network/instanceMethods';
 import ApiConstants from '@network/apiConstants';
-
 import {
   appendSearchParams,
   colorWithOpacity,
   generateRandomString,
   parseUrl,
 } from '@utility/helpers';
+import { Colors, GlobalThemedStyles } from '@themes';
+
 import { displayName as appName } from '../../../app.json';
-import { IconFamily } from '@constants';
-
-import GlobalThemedStyles from '@themes/globalStyles';
-import { Colors } from '@themes';
 import ThemedStyles from './styles';
-
-import { useContext, useEffect } from 'react';
-import { View, Text, Image, TouchableHighlight, Linking } from 'react-native';
-import Toast from 'react-native-toast-message';
 
 const Login = () => {
   const { theme, isDark, dimensions } = useContext(SettingsContext);
+  const { saveAccessToken, saveRefreshToken } = useContext(TokenContext);
+
+  const [loading, setLoading] = useState(false);
+  const [loadingProcessInfo, setLoadingProcessInfo] = useState('');
 
   const globalStyles = GlobalThemedStyles(theme);
   const styles = ThemedStyles(theme, dimensions);
@@ -39,6 +40,8 @@ const Login = () => {
   } = ApiConstants;
 
   const getUserAuthorization = async () => {
+    setLoading(true);
+    setLoadingProcessInfo('Authorizing User');
     const { redirectUrl, authorizationScope, authResponseType } = accountData;
     const { requestAuthorization: requestAuthorizationEndpoint } = accountEndpoints;
 
@@ -58,14 +61,16 @@ const Login = () => {
     const urlString = url.toString();
     const isUrlValid = await Linking.canOpenURL(urlString);
 
-    if (isUrlValid) {
+    if (!isIos || isUrlValid) {
       await Linking.openURL(urlString);
     } else {
+      setLoading(false);
       Toast.show({ text1: 'Invalid Auth Url', type: 'error' });
     }
   };
 
   const getAccessToken = async (code: string) => {
+    setLoadingProcessInfo('Fetching Token');
     const { requestAccessToken: requestAccessTokenEndpoint } = accountEndpoints;
 
     const {
@@ -85,10 +90,17 @@ const Login = () => {
     );
 
     if (!response.success) {
-      const { message, code } = response.error;
+      setLoading(false);
+      const { message } = response.error;
       Toast.show({ text1: `Error ${code}`, text2: message, type: 'error' });
       return;
     }
+
+    const { access_token, expires_in, refresh_token, token_type } = response.responseData;
+    saveAccessToken(`${token_type} ${access_token}`, expires_in);
+    saveRefreshToken(refresh_token);
+
+    setLoading(false);
   };
 
   const handleDeepLink = ({ url }: { url: string }) => {
@@ -127,20 +139,22 @@ const Login = () => {
 
         <TouchableHighlight
           style={[globalStyles.rowCenter, styles.signInButton]}
-          onPress={getUserAuthorization}
           underlayColor={highlightUnderlayColor}
+          onPress={getUserAuthorization}
         >
           <>
             <Icon
               family={IconFamily.MaterialCommunityIcons}
               name="spotify"
-              style={[styles.spotifyIcon]}
+              style={styles.spotifyIcon}
             />
             <Text style={styles.buttonContent}>Sign In with Spotify</Text>
           </>
         </TouchableHighlight>
       </View>
       <View style={styles.emptyView} />
+
+      {loading ? <LoadingView processInfo={loadingProcessInfo} /> : null}
     </GradientScreen>
   );
 };

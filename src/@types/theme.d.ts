@@ -16,6 +16,7 @@ declare global {
     defaultIconColor: string;
     dividerColor: string;
     placeholderColor: string;
+    invertedColor: string;
   }
 
   interface ThemeColorModes {

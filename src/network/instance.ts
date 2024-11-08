@@ -1,9 +1,8 @@
-import { ErrorHandler } from './errorHandler';
-
-import ApiConstants from './apiConstants';
-
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { Buffer } from 'buffer';
+
+import ApiConstants from './apiConstants';
+import { ErrorHandler } from './errorHandler';
 
 const {
   CLIENT_ID,
@@ -45,5 +44,6 @@ function interceptorError(error: AxiosError): ApiCallFailure {
 }
 
 instance.interceptors.response.use(interceptorResponse, interceptorError);
+accountInstance.interceptors.response.use(interceptorResponse, interceptorError);
 
 export default instance;

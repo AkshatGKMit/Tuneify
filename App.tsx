@@ -4,17 +4,19 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
 import Login from '@screens/login/Login';
-
+import LoadingView from '@components/loadingView';
 import SettingsContext, { SettingsContextProvider } from '@config/SettingsContext';
+import TokenContext, { TokenContextProvider } from '@config/TokenContext';
 import PlatformDependentStatusBar from '@config/platformDependentStatusBar';
-
-import GlobalThemedStyles from '@themes/globalStyles';
+import { GlobalThemedStyles } from '@themes';
 
 const App = () => {
   return (
     <SettingsContextProvider>
       <SafeAreaProvider>
-        <Main />
+        <TokenContextProvider>
+          <Main />
+        </TokenContextProvider>
       </SafeAreaProvider>
     </SettingsContextProvider>
   );
@@ -22,14 +24,16 @@ const App = () => {
 
 const Main = () => {
   const { theme } = useContext(SettingsContext);
+  const { loading, loadingProcessInfo } = useContext(TokenContext);
 
   const globalStyles = GlobalThemedStyles(theme);
 
   return (
     <>
       <PlatformDependentStatusBar />
-      <SafeAreaView style={[globalStyles.screen]}>
+      <SafeAreaView style={globalStyles.screen}>
         <Login />
+        {loading ? <LoadingView processInfo={loadingProcessInfo} /> : null}
       </SafeAreaView>
       <Toast />
     </>

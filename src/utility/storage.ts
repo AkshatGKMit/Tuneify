@@ -3,6 +3,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const StorageKey = {
   theme: 'theme',
   font: 'font',
+  accessToken: 'accessToken',
+  tokenExpiresIn: 'tokenExpiresIn',
+  refreshToken: 'refreshToken',
 } as const;
 
 class StorageManager {
