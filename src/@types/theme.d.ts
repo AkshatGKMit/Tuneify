@@ -4,6 +4,7 @@ declare global {
   type ThemeModeType = keyof typeof ThemeMode;
 
   interface ThemeColors {
+    isDark: boolean;
     primaryColor: string;
     accentColor: string;
     statusBarColor: string;
@@ -17,6 +18,7 @@ declare global {
     dividerColor: string;
     placeholderColor: string;
     invertedColor: string;
+    font: Font;
   }
 
   interface ThemeColorModes {

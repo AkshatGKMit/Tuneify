@@ -26,10 +26,12 @@ const ThemedStyles = (theme: ThemeColors, dimensions: WindowDimensions) => {
         fontSize: FontSize.bodyLarge,
         color: theme.textColor,
         marginTop: 2,
+        fontFamily: theme.font,
       },
       subtitle: {
         fontSize: FontSize.bodySmall,
         color: theme.secondaryTextColor,
+        fontFamily: theme.font,
       },
     });
   }, [theme, dimensions]);

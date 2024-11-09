@@ -1,12 +1,11 @@
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
 import { TouchableHighlight } from 'react-native';
 
 import Icon from '@components/icon';
-
 import SettingsContext from '@config/SettingsContext';
-
+import { Colors } from '@themes';
 import { colorWithOpacity } from '@utility/helpers';
-import Colors from '@themes/colors';
+
 import styles from './styles';
 
 const IconButton = ({

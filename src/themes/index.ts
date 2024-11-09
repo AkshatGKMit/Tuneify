@@ -2,52 +2,6 @@ import { colorWithOpacity } from '@utility/helpers';
 import { Colors } from './colors';
 import GlobalThemedStyles from './globalStyles';
 
-export const ThemeMode = {
-  light: 'light',
-  dark: 'dark',
-} as const;
-
-export const ThemeColorModes: ThemeColorModes = {
-  light: {
-    accentColor: Colors.accent.light,
-    accentTextColor: Colors.greyShades.shade600,
-    defaultIconColor: Colors.black,
-    dividerColor: colorWithOpacity(Colors.black, 0.2),
-    placeholderColor: Colors.greyShades.shade400,
-    primaryColor: Colors.primary.light,
-    primaryTextColor: Colors.primary.light,
-    screenBGColor: Colors.white,
-    screenGradient: [Colors.greyShades.shade100, colorWithOpacity(Colors.greyShades.shade100, 0.3)],
-    statusBarColor: Colors.primary.light,
-    textColor: Colors.black,
-    secondaryTextColor: Colors.greyShades.shade600,
-    invertedColor: Colors.black,
-  },
-  dark: {
-    accentColor: Colors.accent.dark,
-    accentTextColor: Colors.greyShades.shade400,
-    defaultIconColor: Colors.white,
-    dividerColor: colorWithOpacity(Colors.white, 0.2),
-    placeholderColor: Colors.greyShades.shade600,
-    primaryColor: Colors.primary.dark,
-    primaryTextColor: Colors.primary.dark,
-    screenBGColor: Colors.black,
-    screenGradient: [Colors.greyShades.shade900, colorWithOpacity(Colors.greyShades.shade900, 0.3)],
-    statusBarColor: Colors.primary.dark,
-    textColor: Colors.white,
-    secondaryTextColor: Colors.greyShades.shade400,
-    invertedColor: Colors.white,
-  },
-};
-
-export const Fonts = {
-  Cornerita: 'Cornerita',
-  LovelyMamma: 'LovelyMamma',
-  PlayfairDisplay: 'PlayfairDisplay',
-  Podkova: 'Podkova',
-  Texturina: 'Texturina',
-} as const;
-
 export const FontSize = {
   displayLarge: 48,
   displayMedium: 36,
@@ -68,6 +22,57 @@ export const FontSize = {
   bodyLarge: 16,
   bodyMedium: 13,
   bodySmall: 10,
+} as const;
+
+export const ThemeMode = {
+  light: 'light',
+  dark: 'dark',
+} as const;
+
+export const ThemeColorModes: ThemeColorModes = {
+  light: {
+    isDark: false,
+    accentColor: Colors.accent.light,
+    accentTextColor: Colors.greyShades.shade600,
+    defaultIconColor: Colors.black,
+    dividerColor: colorWithOpacity(Colors.black, 0.2),
+    placeholderColor: Colors.greyShades.shade400,
+    primaryColor: Colors.primary.light,
+    primaryTextColor: Colors.primary.light,
+    screenBGColor: Colors.white,
+    screenGradient: [Colors.greyShades.shade100, colorWithOpacity(Colors.greyShades.shade100, 0.3)],
+    statusBarColor: Colors.primary.light,
+    textColor: Colors.black,
+    secondaryTextColor: Colors.greyShades.shade600,
+    invertedColor: Colors.black,
+    font: 'default',
+  },
+  dark: {
+    isDark: true,
+    accentColor: Colors.accent.dark,
+    accentTextColor: Colors.greyShades.shade400,
+    defaultIconColor: Colors.white,
+    dividerColor: colorWithOpacity(Colors.white, 0.2),
+    placeholderColor: Colors.greyShades.shade600,
+    primaryColor: Colors.primary.dark,
+    primaryTextColor: Colors.primary.dark,
+    screenBGColor: Colors.black,
+    screenGradient: [Colors.greyShades.shade900, colorWithOpacity(Colors.greyShades.shade900, 0.3)],
+    statusBarColor: Colors.primary.dark,
+    textColor: Colors.white,
+    secondaryTextColor: Colors.greyShades.shade400,
+    invertedColor: Colors.white,
+    font: 'default',
+  },
+};
+
+export const Fonts = {
+  default: 'default',
+  Cornerita: 'Cornerita',
+  LovelyMamma: 'LovelyMamma',
+  PlayfairDisplay: 'PlayfairDisplay',
+  Podkova: 'Podkova',
+  Texturina: 'Texturina',
 } as const;
 
 export { Colors, GlobalThemedStyles };

@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { FontSize } from '@themes';
-import Colors from '@themes/colors';
+import { Colors, FontSize } from '@themes';
 
 const ThemedStyles = (theme: ThemeColors, dimensions: WindowDimensions) => {
   return useMemo(() => {
@@ -34,10 +33,12 @@ const ThemedStyles = (theme: ThemeColors, dimensions: WindowDimensions) => {
       title: {
         fontSize: FontSize.bodyLarge,
         color: theme.textColor,
+        fontFamily: theme.font,
       },
       duration: {
         fontSize: FontSize.bodySmall,
         color: theme.secondaryTextColor,
+        fontFamily: theme.font,
       },
       favoriteIcon: {
         color: Colors.yellow,

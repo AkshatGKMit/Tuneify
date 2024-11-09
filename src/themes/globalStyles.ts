@@ -18,6 +18,9 @@ const ThemedStyles = (theme: ThemeColors) => {
         justifyContent: 'center',
         flexDirection: 'column',
       },
+      globalGp: {
+        gap: 20,
+      },
     });
   }, [theme]);
 };

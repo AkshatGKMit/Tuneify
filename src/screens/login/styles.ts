@@ -23,11 +23,13 @@ const ThemedStyles = (theme: ThemeColors, dimensions: WindowDimensions) => {
         fontWeight: '900',
         color: theme.primaryTextColor,
         marginBottom: 5,
+        fontFamily: theme.font,
       },
       description: {
         color: theme.textColor,
         fontSize: FontSize.bodyMedium,
         textAlign: 'center',
+        fontFamily: theme.font,
       },
       signInButton: {
         marginTop: 50,
@@ -42,8 +44,10 @@ const ThemedStyles = (theme: ThemeColors, dimensions: WindowDimensions) => {
         color: Colors.black,
       },
       buttonContent: {
+        color: Colors.black,
         fontSize: FontSize.bodyLarge,
         fontWeight: '700',
+        fontFamily: theme.font,
       },
       emptyView: {
         flex: 0.75,

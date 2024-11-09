@@ -70,7 +70,7 @@ export const formatDuration = (duration: number) => {
 export const countFollowers = (followers: number | undefined): string => {
   if (!followers) return '0 Followers';
 
-  if (followers < 1000) return `${followers}`;
+  if (followers < 1000) return `${followers} Followers`;
 
   const counts = [
     { limit: 1000000000, suffix: 'B Followers' },

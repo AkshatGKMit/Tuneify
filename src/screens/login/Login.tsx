@@ -24,7 +24,7 @@ import ThemedStyles from './styles';
 
 const Login = () => {
   const { theme, isDark, dimensions } = useContext(SettingsContext);
-  const { saveAccessToken, saveRefreshToken } = useContext(TokenContext);
+  const { saveAccessToken, saveRefreshToken, login } = useContext(TokenContext);
 
   const [loading, setLoading] = useState(false);
   const [loadingProcessInfo, setLoadingProcessInfo] = useState('');
@@ -101,6 +101,7 @@ const Login = () => {
     saveRefreshToken(refresh_token);
 
     setLoading(false);
+    login();
   };
 
   const handleDeepLink = ({ url }: { url: string }) => {
