@@ -1,18 +1,18 @@
-import { useContext, useEffect } from 'react';
-import { Linking, LogBox, SafeAreaView } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-
-import SettingsContext, { SettingsContextProvider } from '@config/SettingsContext';
-import { TokenContextProvider } from '@config/TokenContext';
-import PlatformDependentStatusBar from '@config/platformDependentStatusBar';
-import { GlobalThemedStyles } from '@themes';
-import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
-import Navigator from '@navigation/Navigator';
-import CustomToast from '@config/customToast';
-import { parseUrl } from '@utility/helpers';
-import ErrorBoundary from '@config/ErrorBoundary';
+import { useEffect } from 'react';
+import { Linking, LogBox, SafeAreaView, useColorScheme } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+
+import ErrorBoundary from '@config/ErrorBoundary';
+import CustomToast from '@config/customToast';
+import { TokenContextProvider } from '@config/TokenContext';
 import { ErrorBoundaryErrors } from '@constants';
+import Navigator from '@navigation/Navigator';
+import { GlobalThemedStyles, ThemeMode } from '@themes';
+import store, { useAppDispatch, useAppSelector } from '@store';
+import { switchTheme } from '@store/reducers/theme';
 
 const App = () => {
   useEffect(() => {
@@ -20,7 +20,7 @@ const App = () => {
   }, []);
 
   return (
-    <SettingsContextProvider>
+    <Provider store={store}>
       <ErrorBoundary>
         <SafeAreaProvider>
           <TokenContextProvider>
@@ -28,14 +28,16 @@ const App = () => {
           </TokenContextProvider>
         </SafeAreaProvider>
       </ErrorBoundary>
-    </SettingsContextProvider>
+    </Provider>
   );
 };
 
 const Main = () => {
   const netInfo = useNetInfo();
+  const colorScheme = useColorScheme();
 
-  const { theme } = useContext(SettingsContext);
+  const theme = useAppSelector(({ theme }) => theme.colors);
+  const dispatch = useAppDispatch();
 
   const globalStyles = GlobalThemedStyles(theme);
 
@@ -63,9 +65,12 @@ const Main = () => {
     }
   }, [netInfo]);
 
+  useEffect(() => {
+    dispatch(switchTheme(colorScheme ?? ThemeMode.light));
+  }, [colorScheme]);
+
   return (
     <>
-      <PlatformDependentStatusBar />
       <SafeAreaView style={globalStyles.screen}>
         <NavigationContainer linking={linking}>
           <Navigator />
