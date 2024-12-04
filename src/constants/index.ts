@@ -9,7 +9,16 @@ export const STORE_CONSTANTS = {
       SWITCH: 'switch',
     },
   },
+  USER: {
+    NAME: 'user',
+    ACTIONS: {},
+    THUNK: {
+      AUTHORIZATION: 'authorization',
+    },
+  },
 } as const;
+
+export const STORAGE_KEY = {} as const;
 
 export const IconFamily = {
   AntDesign: 'AntDesign',
