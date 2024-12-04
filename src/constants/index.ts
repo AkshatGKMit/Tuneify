@@ -11,12 +11,18 @@ export const STORE_CONSTANTS = {
   },
   USER: {
     NAME: 'user',
-    ACTIONS: {},
     THUNK: {
+      FETCH_TOKEN_FROM_STORAGE: 'fetchTokenFromStorage',
       AUTHORIZATION: 'authorization',
       REQUEST_ACCESS_TOKEN: 'request_access_token',
+      LOGOUT: 'logout',
     },
   },
+} as const;
+
+export const REQUEST_STATUS = {
+  FULFILLED: 'fulfilled',
+  REJECTED: 'rejected',
 } as const;
 
 export const STORAGE_KEY = {

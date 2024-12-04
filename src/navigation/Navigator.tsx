@@ -1,17 +1,12 @@
-import { useContext } from 'react';
-
-import TokenContext from '@config/TokenContext';
-import LoadingView from '@components/loadingView';
 import Login from '@screens/login/Login';
+import { useAppSelector } from '@store';
+
 import StackNavigator from './StackNavigator';
 
 const Navigator = () => {
-  const { loading, loadingProcessInfo, navigateToLogin, saveAccessToken } =
-    useContext(TokenContext);
+  const { isAuthorize } = useAppSelector(({ user }) => user);
 
-  if (loading) return <LoadingView processInfo={loadingProcessInfo} />;
-
-  return navigateToLogin ? <Login /> : <StackNavigator />;
+  return !isAuthorize ? <Login /> : <StackNavigator />;
 };
 
 export default Navigator;

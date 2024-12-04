@@ -6,14 +6,13 @@ import { Tuneify } from '@assets/images';
 import GradientScreen from '@components/gradientScreen';
 import Icon from '@components/icon';
 import LoadingView from '@components/loadingView';
-import TokenContext from '@config/TokenContext';
-import { IconFamily, isIos } from '@constants';
+import { IconFamily, REQUEST_STATUS, STORAGE_KEY } from '@constants';
 import { _post, _postAccount } from '@network/instanceMethods';
-import ApiConstants from '@network/apiConstants';
 import { useAppDispatch, useAppSelector } from '@store';
 import { authorizeUser, requestAccessTokenViaCode } from '@store/reducers/auth';
 import { GlobalThemedStyles } from '@themes';
 import { parseUrl } from '@utility/helpers';
+import StorageManager from '@utility/storage';
 
 import { displayName as appName } from '../../../app.json';
 import ThemedStyles from './styles';
@@ -27,12 +26,22 @@ const Login = () => {
   const globalStyles = GlobalThemedStyles();
   const styles = ThemedStyles();
 
-  const handleDeepLink = ({ url }: { url: string }) => {
+  const handleDeepLink = async ({ url }: { url: string }) => {
     const {
       searchParams: { code },
     } = parseUrl<AuthCodeResponseUrlType>(url);
 
-    dispatch(requestAccessTokenViaCode(code));
+    const response = await dispatch(requestAccessTokenViaCode(code));
+
+    if (response.meta.requestStatus === REQUEST_STATUS.FULFILLED) {
+      const { access_token, refresh_token, token_type } =
+        response.payload as AuthAccessTokenResponse;
+
+      const accessToken = `${token_type} ${access_token}`;
+
+      await StorageManager.saveStoreValue(STORAGE_KEY.REFRESH_TOKEN, refresh_token);
+      await StorageManager.saveStoreValue(STORAGE_KEY.ACCESS_TOKEN, accessToken);
+    }
   };
 
   useEffect(() => {

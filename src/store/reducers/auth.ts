@@ -1,12 +1,11 @@
+import { Linking } from 'react-native';
 import { ActionReducerMapBuilder, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { isIos, STORAGE_KEY, STORE_CONSTANTS } from '@constants';
 import ApiConstants from '@network/apiConstants';
+import { _postAccount } from '@network/instanceMethods';
 import { appendSearchParams, generateRandomString } from '@utility/helpers';
 import StorageManager from '@utility/storage';
-import { _postAccount } from '@network/instanceMethods';
-import { Linking } from 'react-native';
-import Toast from 'react-native-toast-message';
 
 const { NAME: name, THUNK: thunk } = STORE_CONSTANTS.USER;
 
@@ -22,6 +21,12 @@ const initialState: AuthState = {
   loading: false,
   isAuthorize: false,
 };
+
+export const fetchTokenFromStorage = createAsyncThunk(thunk.FETCH_TOKEN_FROM_STORAGE, async () => {
+  const refreshToken = await StorageManager.getStoreValue<string>(STORAGE_KEY.REFRESH_TOKEN);
+
+  if (!refreshToken) throw new Error('');
+});
 
 export const authorizeUser = createAsyncThunk(thunk.AUTHORIZATION, async () => {
   const searchParams: UserAuthorizationParams = {
@@ -40,7 +45,7 @@ export const authorizeUser = createAsyncThunk(thunk.AUTHORIZATION, async () => {
   if (!isIos || isUrlValid) {
     await Linking.openURL(urlString);
   } else {
-    Toast.show({ text1: 'Invalid Auth Url', type: 'error' });
+    throw new Error('Unable to open auth url');
   }
 });
 
@@ -62,7 +67,23 @@ export const requestAccessTokenViaCode = createAsyncThunk(
   },
 );
 
-const reducerBuilder = ({ addCase }: ActionReducerMapBuilder<AuthState>) => {
+export const logout = createAsyncThunk(thunk.LOGOUT, async () => {
+  await StorageManager.saveStoreValue(STORAGE_KEY.REFRESH_TOKEN, '');
+  await StorageManager.saveStoreValue(STORAGE_KEY.ACCESS_TOKEN, '');
+});
+
+const extraReducerBuilder = ({ addCase }: ActionReducerMapBuilder<AuthState>) => {
+  addCase(fetchTokenFromStorage.pending, (state) => {
+    state.loading = true;
+  });
+  addCase(fetchTokenFromStorage.rejected, (state) => {
+    state.loading = false;
+  });
+  addCase(fetchTokenFromStorage.fulfilled, (state) => {
+    state.loading = false;
+    state.isAuthorize = true;
+  });
+
   addCase(authorizeUser.pending, (state) => {
     state.loading = true;
   });
@@ -75,7 +96,7 @@ const reducerBuilder = ({ addCase }: ActionReducerMapBuilder<AuthState>) => {
   });
 
   addCase(requestAccessTokenViaCode.pending, (state) => {
-    state.loading = false;
+    state.loading = true;
   });
   addCase(requestAccessTokenViaCode.rejected, (state, actions) => {
     state.error = actions.error;
@@ -83,15 +104,11 @@ const reducerBuilder = ({ addCase }: ActionReducerMapBuilder<AuthState>) => {
   });
   addCase(requestAccessTokenViaCode.fulfilled, (state, actions) => {
     state.loading = false;
-
-    const { access_token, refresh_token, token_type } = actions.payload.data;
-
-    const accessToken = `${token_type} ${access_token}`;
-
-    StorageManager.saveStoreValue(STORAGE_KEY.REFRESH_TOKEN, refresh_token);
-    StorageManager.saveStoreValue(STORAGE_KEY.ACCESS_TOKEN, accessToken);
-
     state.isAuthorize = true;
+  });
+
+  addCase(logout.fulfilled, (state) => {
+    state.isAuthorize = false;
   });
 };
 
@@ -99,7 +116,7 @@ const authSlice = createSlice({
   name,
   initialState,
   reducers: {},
-  extraReducers: reducerBuilder,
+  extraReducers: extraReducerBuilder,
 });
 
 const authReducer = authSlice.reducer;
