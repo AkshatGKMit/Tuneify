@@ -6,5 +6,6 @@ interface ThemeState {
 
 interface AuthState {
   loading: boolean;
+  isAuthorize: boolean;
   error?: Partial<ApiCallError>;
 }

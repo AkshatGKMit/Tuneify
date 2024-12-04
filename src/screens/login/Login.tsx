@@ -11,7 +11,7 @@ import { IconFamily, isIos } from '@constants';
 import { _post, _postAccount } from '@network/instanceMethods';
 import ApiConstants from '@network/apiConstants';
 import { useAppDispatch, useAppSelector } from '@store';
-import { authorizeUser } from '@store/reducers/auth';
+import { authorizeUser, requestAccessTokenViaCode } from '@store/reducers/auth';
 import { GlobalThemedStyles } from '@themes';
 import { parseUrl } from '@utility/helpers';
 
@@ -19,60 +19,20 @@ import { displayName as appName } from '../../../app.json';
 import ThemedStyles from './styles';
 
 const Login = () => {
-  const loading = useAppSelector(({ user }) => user.loading);
+  const { loading, error } = useAppSelector(({ user }) => user);
   const dispatch = useAppDispatch();
 
-  const { saveAccessToken, saveRefreshToken, login } = useContext(TokenContext);
-
-  const [loadingProcessInfo, setLoadingProcessInfo] = useState('');
+  const [loadingProcessInfo] = useState('');
 
   const globalStyles = GlobalThemedStyles();
   const styles = ThemedStyles();
-
-  const {
-    data,
-    endpoints: { account: accountEndpoints },
-  } = ApiConstants;
-
-  const getAccessToken = async (code: string) => {
-    setLoadingProcessInfo('Fetching Token');
-    const { requestAccessToken: requestAccessTokenEndpoint } = accountEndpoints;
-
-    const {
-      grantType: { code: codeGrantType },
-      redirectUrl,
-    } = data.account;
-
-    const body: RequestAccessTokenBody = {
-      grant_type: codeGrantType,
-      redirect_uri: redirectUrl,
-      code,
-    };
-
-    const response = await _postAccount<AuthAccessTokenResponse, RequestAccessTokenBody>(
-      requestAccessTokenEndpoint,
-      body,
-    );
-
-    if (!response.success) {
-      const { message } = response.error;
-      Toast.show({ text1: `Error ${code}`, text2: message, type: 'error' });
-      return;
-    }
-
-    const { access_token, expires_in, refresh_token, token_type } = response.responseData;
-    saveAccessToken(`${token_type} ${access_token}`, expires_in);
-    saveRefreshToken(refresh_token);
-
-    login();
-  };
 
   const handleDeepLink = ({ url }: { url: string }) => {
     const {
       searchParams: { code },
     } = parseUrl<AuthCodeResponseUrlType>(url);
 
-    getAccessToken(code);
+    dispatch(requestAccessTokenViaCode(code));
   };
 
   useEffect(() => {
@@ -82,6 +42,13 @@ const Login = () => {
       Linking.removeAllListeners('url');
     };
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      const { code, message } = error;
+      Toast.show({ text1: `Error ${code}`, text2: message, type: 'error' });
+    }
+  }, [error]);
 
   return (
     <GradientScreen>

@@ -14,11 +14,15 @@ export const STORE_CONSTANTS = {
     ACTIONS: {},
     THUNK: {
       AUTHORIZATION: 'authorization',
+      REQUEST_ACCESS_TOKEN: 'request_access_token',
     },
   },
 } as const;
 
-export const STORAGE_KEY = {} as const;
+export const STORAGE_KEY = {
+  ACCESS_TOKEN: 'access_token',
+  REFRESH_TOKEN: 'refresh_token',
+} as const;
 
 export const IconFamily = {
   AntDesign: 'AntDesign',

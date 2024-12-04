@@ -1,12 +1,4 @@
-import {
-  ActionCreatorWithPayload,
-  ActionReducerMapBuilder,
-  CaseReducer,
-  createAction,
-  createReducer,
-  createSlice,
-  PayloadAction,
-} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { STORE_CONSTANTS } from '@constants';
 import { ThemeColorModes, ThemeMode } from '@themes';
