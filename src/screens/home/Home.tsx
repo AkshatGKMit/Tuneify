@@ -113,10 +113,10 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchUserSavedTracks();
+    // fetchUserSavedTracks();
     fetchPlaylists();
-    fetchNewReleasedAlbums();
-    fetchPlaylists(true);
+    // fetchNewReleasedAlbums();
+    // fetchPlaylists(true);
   }, []);
 
   useEffect(() => {

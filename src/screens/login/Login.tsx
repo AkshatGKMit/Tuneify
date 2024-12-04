@@ -35,14 +35,14 @@ const Login = () => {
   const {
     CLIENT_ID,
     ACCOUNT_BASE_URL,
-    accountData,
+    data,
     endpoints: { account: accountEndpoints },
   } = ApiConstants;
 
   const getUserAuthorization = async () => {
     setLoading(true);
     setLoadingProcessInfo('Authorizing User');
-    const { redirectUrl, authorizationScope, authResponseType } = accountData;
+    const { redirectUrl, authorizationScope, authResponseType } = data.account;
     const { requestAuthorization: requestAuthorizationEndpoint } = accountEndpoints;
 
     const state = generateRandomString(16);
@@ -76,7 +76,7 @@ const Login = () => {
     const {
       grantType: { code: codeGrantType },
       redirectUrl,
-    } = accountData;
+    } = data.account;
 
     const body: RequestAccessTokenBody = {
       grant_type: codeGrantType,

@@ -14,15 +14,18 @@ const ApiConstants = {
     json: 'application/json',
   } as const,
   trackImageBaseUrl: 'https://embed.spotify.com/oembed/?url=spotify:track:',
-  accountData: {
-    authorizationScope:
-      'user-read-private user-read-recently-played user-top-read playlist-read-private user-library-read user-follow-read user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-modify user-follow-modify playlist-modify-public playlist-modify-private',
-    redirectUrl: 'tuneify://login',
-    authResponseType: 'code',
-    grantType: {
-      code: 'authorization_code',
-      token: 'refresh_token',
-    } as const,
+  data: {
+    account: {
+      authorizationScope:
+        'user-read-private user-read-recently-played user-top-read playlist-read-private user-library-read user-follow-read user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-modify user-follow-modify playlist-modify-public playlist-modify-private',
+      redirectUrl: 'tuneify://login',
+      authResponseType: 'code',
+      grantType: {
+        code: 'authorization_code',
+        token: 'refresh_token',
+      } as const,
+    },
+    playlists: {},
   },
   endpoints: {
     account: {

@@ -40,7 +40,9 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
     setLoading(true);
     setLoadingProcessInfo('Fetching Token');
     const {
-      accountData: { grantType },
+      data: {
+        account: { grantType },
+      },
       endpoints: {
         account: { requestAccessToken },
       },
@@ -141,11 +143,11 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
   };
 
   const setTokenInInterceptor = (token: string) => {
-    instance.interceptors.request.clear();
-    instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-      config.headers.Authorization = token;
-      return config;
-    });
+    // instance.interceptors.request.clear();
+    // instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+    //   config.headers.Authorization = token;
+    //   return config;
+    // });
   };
 
   const login = () => {

@@ -3,6 +3,7 @@ import { Buffer } from 'buffer';
 
 import ApiConstants from './apiConstants';
 import { ErrorHandler } from './errorHandler';
+import StorageManager, { StorageKey } from '@utility/storage';
 
 const {
   CLIENT_ID,
@@ -25,6 +26,33 @@ export const accountInstance = axios.create({
   },
 });
 
+const getAccessToken = async (token: string): Promise<string> => {
+  const {
+    data: {
+      account: { grantType },
+    },
+    endpoints: {
+      account: { requestAccessToken },
+    },
+  } = ApiConstants;
+
+  const url = requestAccessToken;
+  const body: RequestAccessTokenBody = {
+    grant_type: grantType.token,
+    refresh_token: token,
+  };
+
+  const response = await accountInstance.post(url, body);
+
+  const { access_token, token_type, refresh_token } = response.data;
+  const newAccessToken = `${token_type} ${access_token}`;
+
+  await StorageManager.saveStoreValue(StorageKey.accessToken, JSON.stringify(newAccessToken));
+  await StorageManager.saveStoreValue(StorageKey.refreshToken, JSON.stringify(refresh_token));
+
+  return newAccessToken;
+};
+
 function interceptorResponse<T>(
   response: AxiosResponse<ApiCallResponse<T>>,
 ): AxiosResponse<ApiCallResponse<T>> {
@@ -37,8 +65,13 @@ function interceptorResponse<T>(
 }
 
 function interceptorError(error: AxiosError): ApiCallFailure {
-  const apiError = ErrorHandler(error);
+  const originalRequest = error.config;
 
+  if (error.response?.status === 401) {
+    const refreshToken = StorageManager.getStoreValue<string>(StorageKey.refreshToken);
+  }
+
+  const apiError = ErrorHandler(error);
   const apiFailure: ApiCallFailure = { success: false, error: apiError };
   return apiFailure;
 }

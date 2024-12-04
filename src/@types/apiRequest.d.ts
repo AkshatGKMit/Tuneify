@@ -1,6 +1,6 @@
 import ApiConstants from '@network/apiConstants';
 
-const { code: grantTypeCode, token: grantTypeToken } = ApiConstants.accountData.grantType;
+const { code: grantTypeCode, token: grantTypeToken } = ApiConstants.data.account.grantType;
 
 declare global {
   interface UserAuthorizationParams {
