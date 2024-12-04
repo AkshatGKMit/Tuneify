@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
@@ -10,8 +8,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-
-import SettingsContext from '@config/SettingsContext';
 
 import ThemedStyles from './style';
 
@@ -29,9 +25,7 @@ const iconFamilies = {
 };
 
 const Icon = ({ family, name, style }: IconProps) => {
-  const { theme } = useContext(SettingsContext);
-
-  const styles = ThemedStyles(theme);
+  const styles = ThemedStyles();
 
   const SelectedIcon = iconFamilies[family];
 

@@ -1,14 +1,12 @@
-import { useContext } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 
-import SettingsContext from '@config/SettingsContext';
-
 import GlobalThemedStyles from '@themes/globalStyles';
+import { useAppSelector } from '@store';
 
 const GradientScreen = ({ children }: GradientScreenProps) => {
-  const { theme } = useContext(SettingsContext);
+  const theme = useAppSelector(({ theme }) => theme.colors);
 
-  const globalStyles = GlobalThemedStyles(theme);
+  const globalStyles = GlobalThemedStyles();
 
   return (
     <LinearGradient

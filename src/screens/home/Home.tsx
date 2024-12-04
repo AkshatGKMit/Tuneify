@@ -1,35 +1,19 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  FlatList,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  Linking,
-} from 'react-native';
+import { useEffect, useState } from 'react';
+import { ScrollView, NativeSyntheticEvent, NativeScrollEvent, Linking } from 'react-native';
+import Toast from 'react-native-toast-message';
+import { useNavigation } from '@react-navigation/native';
 
 import GradientScreen from '@components/gradientScreen';
-import { useContext, useEffect, useState } from 'react';
-import { _get } from '@network/instanceMethods';
-import ApiConstants from '@network/apiConstants';
-import Toast from 'react-native-toast-message';
-import { formatAlbums, formatPlaylists, formatTracksWithImages } from '@network/dataFormatters';
+import HorizontalLibrariesView from '@components/horizontalLibrariesView';
 import { LibraryType, NavigationRoutes } from '@constants';
-import ThemedStyles from './styles';
-import SettingsContext from '@config/SettingsContext';
-import HorizontalLibrariesView from '../../components/horizontalLibrariesView/HorizontalLibrariesView';
-import TrackTile from '@components/trackTile';
 import HomeHeader from '@config/homeHeader';
+import ApiConstants from '@network/apiConstants';
+import { formatAlbums, formatPlaylists, formatTracksWithImages } from '@network/dataFormatters';
+import { _get } from '@network/instanceMethods';
 import { parseUrl } from '@utility/helpers';
-import { useNavigation } from '@react-navigation/native';
-import TokenContext from '@config/TokenContext';
 
 const Home = () => {
   const navigation = useNavigation<StackNavigation>();
-
-  const { theme } = useContext(SettingsContext);
-
-  const styles = ThemedStyles(theme);
 
   const [showHeader, setShowHeader] = useState(true);
 

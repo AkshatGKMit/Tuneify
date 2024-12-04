@@ -1,10 +1,9 @@
-import { useContext, useMemo } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { useMemo } from 'react';
+import { Text, Pressable } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 import { AlbumCover, ArtistCover, PlaylistCover, TrackCover } from '@assets/images';
-import SettingsContext from '@config/SettingsContext';
 import { countFollowers, formatDuration } from '@utility/helpers';
 import { LibraryType, NavigationRoutes } from '@constants';
 
@@ -13,9 +12,7 @@ import ThemedStyles from './styles';
 const LibraryCard = ({ type, library }: LibraryCardProps) => {
   const navigation = useNavigation<StackNavigation>();
 
-  const { theme, dimensions } = useContext(SettingsContext);
-
-  const styles = ThemedStyles(theme, dimensions);
+  const styles = ThemedStyles();
 
   const [title, subtitle, image, defaultImage, onPress] = useMemo(() => {
     const onPress = () => {

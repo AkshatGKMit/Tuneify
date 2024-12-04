@@ -1,22 +1,14 @@
-import { useContext } from 'react';
-import { View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import Toast, { BaseToast, BaseToastProps, ToastConfig } from 'react-native-toast-message';
 
 import Icon from '@components/icon';
-
-import SettingsContext from '@config/SettingsContext';
 
 import { IconFamily } from '@constants';
 
 import ThemedStyles from './styles';
 
 const CustomToast = () => {
-  const {
-    theme,
-    dimensions: { height },
-  } = useContext(SettingsContext);
-
-  const styles = ThemedStyles(theme);
+  const styles = ThemedStyles();
 
   const toastAttributes: BaseToastProps = {
     contentContainerStyle: styles.content,
@@ -81,7 +73,7 @@ const CustomToast = () => {
     <Toast
       position="bottom"
       visibilityTime={3000}
-      bottomOffset={height / 10}
+      bottomOffset={Dimensions.get('window').height / 10}
       config={toastConfig}
     />
   );

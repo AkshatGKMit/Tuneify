@@ -1,17 +1,15 @@
-import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { FontSize } from '@themes';
+import { createThemedStyles } from '@utility/styles';
 
-const ThemedStyles = (theme: ThemeColors) => {
-  return useMemo(() => {
-    return StyleSheet.create({
-      icon: {
-        color: theme.defaultIconColor,
-        fontSize: FontSize.bodyLarge,
-      },
-    });
-  }, [theme]);
-};
+const ThemedStyles = createThemedStyles((theme: ThemeColors) => {
+  return StyleSheet.create({
+    icon: {
+      color: theme.defaultIconColor,
+      fontSize: FontSize.bodyLarge,
+    },
+  });
+});
 
 export default ThemedStyles;

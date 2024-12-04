@@ -1,7 +1,9 @@
 import { Fonts, ThemeMode } from '@themes';
 
 declare global {
-  type ThemeModeType = keyof typeof ThemeMode;
+  type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle };
+
+  type ThemeModeType = (typeof ThemeMode)[keyof typeof ThemeMode];
 
   interface ThemeColors {
     isDark: boolean;
@@ -26,5 +28,12 @@ declare global {
     dark: ThemeColors;
   }
 
-  export type Font = keyof typeof Fonts;
+  export type Font = (typeof Fonts)[keyof typeof Fonts];
+
+  interface SafeAreaInsets {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+  }
 }

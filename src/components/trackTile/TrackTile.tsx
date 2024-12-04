@@ -1,11 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-import Icon from '@components/icon';
-import SettingsContext from '@config/SettingsContext';
 import { formatDuration } from '@utility/helpers';
-import { IconFamily, NavigationRoutes } from '@constants';
+import { NavigationRoutes } from '@constants';
 import ThemedStyles from './styles';
 import ApiConstants from '@network/apiConstants';
 import { TrackCover } from '@assets/images';
@@ -15,11 +13,9 @@ import { useNavigation } from '@react-navigation/native';
 const TrackTile = ({ track }: { track: Track }) => {
   const navigation = useNavigation<StackNavigation>();
 
-  const { theme, dimensions } = useContext(SettingsContext);
-
   const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
 
-  const styles = ThemedStyles(theme, dimensions);
+  const styles = ThemedStyles();
 
   const fetchImage = async () => {
     const url = ApiConstants.trackImageBaseUrl + id;
