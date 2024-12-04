@@ -1,14 +1,12 @@
-import { useContext } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 
-import SettingsContext from '@config/SettingsContext';
-
 import ThemedStyles from './styles';
+import { useAppSelector } from '@store';
 
 const LoadingView = ({ processInfo }: { processInfo?: string }) => {
-  const { theme } = useContext(SettingsContext);
+  const theme = useAppSelector(({ theme }) => theme.colors);
 
-  const styles = ThemedStyles(theme);
+  const styles = ThemedStyles();
 
   return (
     <View style={styles.loaderView}>

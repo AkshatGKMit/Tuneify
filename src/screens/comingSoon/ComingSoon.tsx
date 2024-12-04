@@ -1,15 +1,13 @@
+import { View, Image } from 'react-native';
+
 import { ComingSoonImage } from '@assets/images';
 import GradientScreen from '@components/gradientScreen';
-import SettingsContext from '@config/SettingsContext';
 import { GlobalThemedStyles } from '@themes';
-import { useContext } from 'react';
-import { View, Text, Image } from 'react-native';
+
 import styles from './styles';
 
 const ComingSoon = () => {
-  const { theme } = useContext(SettingsContext);
-
-  const globalStyles = GlobalThemedStyles(theme);
+  const globalStyles = GlobalThemedStyles();
 
   return (
     <GradientScreen>

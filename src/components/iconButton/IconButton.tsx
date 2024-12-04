@@ -1,8 +1,7 @@
-import { useContext } from 'react';
 import { TouchableHighlight } from 'react-native';
 
 import Icon from '@components/icon';
-import SettingsContext from '@config/SettingsContext';
+import { useAppSelector } from '@store';
 import { Colors } from '@themes';
 import { colorWithOpacity } from '@utility/helpers';
 
@@ -16,7 +15,7 @@ const IconButton = ({
   iconStyle,
   underlayColor,
 }: IconBtnProps) => {
-  const { isDark } = useContext(SettingsContext);
+  const isDark = useAppSelector(({ theme }) => theme.isDark);
 
   const highlightUnderlayColor =
     underlayColor ??

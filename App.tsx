@@ -11,7 +11,7 @@ import { TokenContextProvider } from '@config/TokenContext';
 import { ErrorBoundaryErrors } from '@constants';
 import Navigator from '@navigation/Navigator';
 import { GlobalThemedStyles, ThemeMode } from '@themes';
-import store, { useAppDispatch, useAppSelector } from '@store';
+import store, { useAppDispatch } from '@store';
 import { switchTheme } from '@store/reducers/theme';
 
 const App = () => {
@@ -36,10 +36,9 @@ const Main = () => {
   const netInfo = useNetInfo();
   const colorScheme = useColorScheme();
 
-  const theme = useAppSelector(({ theme }) => theme.colors);
   const dispatch = useAppDispatch();
 
-  const globalStyles = GlobalThemedStyles(theme);
+  const globalStyles = GlobalThemedStyles();
 
   const linking: LinkingOptions<RootStackParamList> = {
     prefixes: ['tuneify://'],

@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const ThemedStyles = (theme: ThemeColors) => {
-  const insets = useSafeAreaInsets();
+import { createThemedStyles } from '@utility/styles';
+
+const ThemedStyles = createThemedStyles((theme: ThemeColors, _, insets) => {
   const statusBarHeight = insets.top;
 
   return useMemo(() => {
@@ -15,6 +15,6 @@ const ThemedStyles = (theme: ThemeColors) => {
       },
     });
   }, [theme, statusBarHeight]);
-};
+});
 
 export default ThemedStyles;

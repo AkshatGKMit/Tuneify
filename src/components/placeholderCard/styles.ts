@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { FontSize } from '@themes';
+import { createThemedStyles } from '@utility/styles';
 
-const ThemedStyles = (theme: ThemeColors, dimensions: WindowDimensions) => {
+const ThemedStyles = createThemedStyles((theme: ThemeColors, dimensions: WindowDimensions) => {
   return useMemo(() => {
     const { width } = dimensions;
 
@@ -40,6 +40,6 @@ const ThemedStyles = (theme: ThemeColors, dimensions: WindowDimensions) => {
       },
     });
   }, [theme, dimensions]);
-};
+});
 
 export default ThemedStyles;

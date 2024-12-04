@@ -13,15 +13,6 @@ declare global {
     width: number;
   }
 
-  interface SettingsContextValues {
-    dimensions: WindowDimensions;
-    theme: ThemeColors;
-    isDark: boolean;
-    switchTheme: (themeMode: ThemeModeType) => void;
-    font: Font;
-    changeFont: (font: Font) => void;
-  }
-
   type StorageKeyType = keyof typeof StorageKey;
 
   interface TokenContextValues {

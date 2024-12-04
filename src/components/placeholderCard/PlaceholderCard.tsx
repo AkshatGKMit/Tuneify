@@ -1,15 +1,11 @@
-import { useContext } from 'react';
 import { View } from 'react-native';
 
-import SettingsContext from '@config/SettingsContext';
 import { LibraryType } from '@constants';
 
 import ThemedStyles from './styles';
 
 const PlaceholderCard = ({ type }: { type: LibraryType }) => {
-  const { theme, dimensions } = useContext(SettingsContext);
-
-  const styles = ThemedStyles(theme, dimensions);
+  const styles = ThemedStyles();
 
   const imageStyles = [
     styles.thumbnail,

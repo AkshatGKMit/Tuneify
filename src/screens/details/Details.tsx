@@ -1,39 +1,30 @@
-import { View, Text, FlatList, ScrollView, LogBox } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text, FlatList, ScrollView } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 import GradientScreen from '@components/gradientScreen';
-import { useRoute } from '@react-navigation/native';
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import ApiConstants from '@network/apiConstants';
-import { IconFamily, LibraryType } from '@constants';
-import { _get } from '@network/instanceMethods';
-import Toast from 'react-native-toast-message';
-import {
-  formatAlbum,
-  formatPlaylist,
-  formatTrackWithImage,
-  formatTracksWithImages,
-} from '@network/dataFormatters';
-import InfoSection from './InfoSection';
-import LoadingView from '@components/loadingView';
-import { AlbumCover, ArtistCover, PlaylistCover, TrackCover } from '@assets/images';
-import HorizontalLibrariesView from '@components/horizontalLibrariesView/HorizontalLibrariesView';
-import { GlobalThemedStyles } from '@themes';
-import SettingsContext from '@config/SettingsContext';
 import TrackTile from '@components/trackTile';
-import ThemedStyles from './styles';
 import Icon from '@components/icon';
+import LoadingView from '@components/loadingView';
+import { IconFamily, LibraryType } from '@constants';
+import ApiConstants from '@network/apiConstants';
+import { formatAlbum, formatPlaylist } from '@network/dataFormatters';
+import { _get } from '@network/instanceMethods';
+import { GlobalThemedStyles } from '@themes';
 import { countFollowers } from '@utility/helpers';
+
+import InfoSection from './InfoSection';
+import ThemedStyles from './styles';
 
 const Details = () => {
   const route = useRoute<DetailsScreenRoute>();
 
-  const { theme, dimensions } = useContext(SettingsContext);
-
   const [type, setType] = useState<TrackOmittedLibrary | null>(LibraryType.playlist);
   const [library, setLibrary] = useState<Library | null>(null);
 
-  const globalStyles = GlobalThemedStyles(theme);
-  const styles = ThemedStyles(theme, dimensions);
+  const globalStyles = GlobalThemedStyles();
+  const styles = ThemedStyles();
 
   const {
     albums: { getDetails: albumDetailsEndpoint },

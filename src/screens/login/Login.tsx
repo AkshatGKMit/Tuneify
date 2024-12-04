@@ -6,31 +6,31 @@ import { Tuneify } from '@assets/images';
 import GradientScreen from '@components/gradientScreen';
 import Icon from '@components/icon';
 import LoadingView from '@components/loadingView';
-import SettingsContext from '@config/SettingsContext';
 import TokenContext from '@config/TokenContext';
 import { IconFamily, isIos } from '@constants';
 import { _post, _postAccount } from '@network/instanceMethods';
 import ApiConstants from '@network/apiConstants';
+import { useAppSelector } from '@store';
+import { Colors, GlobalThemedStyles } from '@themes';
 import {
   appendSearchParams,
   colorWithOpacity,
   generateRandomString,
   parseUrl,
 } from '@utility/helpers';
-import { Colors, GlobalThemedStyles } from '@themes';
 
 import { displayName as appName } from '../../../app.json';
 import ThemedStyles from './styles';
 
 const Login = () => {
-  const { theme, isDark, dimensions } = useContext(SettingsContext);
+  const isDark = useAppSelector(({ theme }) => theme.isDark);
   const { saveAccessToken, saveRefreshToken, login } = useContext(TokenContext);
 
   const [loading, setLoading] = useState(false);
   const [loadingProcessInfo, setLoadingProcessInfo] = useState('');
 
-  const globalStyles = GlobalThemedStyles(theme);
-  const styles = ThemedStyles(theme, dimensions);
+  const globalStyles = GlobalThemedStyles();
+  const styles = ThemedStyles();
 
   const {
     CLIENT_ID,

@@ -1,18 +1,14 @@
-import { View, Text, Pressable } from 'react-native';
-import React, { useContext } from 'react';
-import { NativeStackHeaderProps } from '@react-navigation/native-stack';
-import ThemedStyles from './styles';
-import SettingsContext from '@config/SettingsContext';
-import IconButton from '@components/iconButton';
-import { IconFamily, NavigationRoutes } from '@constants';
-import Icon from '@components/icon';
-import { displayName as appName } from '../../../app.json';
+import { View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const HomeHeader = () => {
-  const { theme } = useContext(SettingsContext);
+import IconButton from '@components/iconButton';
+import { IconFamily, NavigationRoutes } from '@constants';
 
-  const styles = ThemedStyles(theme);
+import ThemedStyles from './styles';
+import { displayName as appName } from '../../../app.json';
+
+const HomeHeader = () => {
+  const styles = ThemedStyles();
 
   const { navigate } = useNavigation<StackNavigation>();
 

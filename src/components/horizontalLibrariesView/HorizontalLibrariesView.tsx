@@ -1,21 +1,16 @@
 import { View, Text, FlatList } from 'react-native';
-import React, { useContext } from 'react';
-import ThemedStyles from './styles';
-import SettingsContext from '@config/SettingsContext';
+
 import LibraryCard from '@components/libraryCard';
-import LoadingView from '@components/loadingView';
 import PlaceholderCard from '@components/placeholderCard';
+
+import ThemedStyles from './styles';
 
 const HorizontalLibrariesView = ({
   libraryType,
   libraries,
   title,
 }: HorizontalLibrariesListProps) => {
-  const {
-    theme,
-    dimensions: { width },
-  } = useContext(SettingsContext);
-  const styles = ThemedStyles(theme);
+  const styles = ThemedStyles();
 
   const keyExtractor = (item: Library) => item.id;
 

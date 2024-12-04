@@ -1,12 +1,13 @@
-import { View, Text, ImageBackground } from 'react-native';
 import React, { useContext, useMemo } from 'react';
-import ThemedStyles from './styles';
-import SettingsContext from '@config/SettingsContext';
+import { View, Text, ImageBackground, useWindowDimensions } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { IconFamily, LibraryType } from '@constants';
-import { AlbumCover, PlaylistCover } from '@assets/images';
-import IconButton from '@components/iconButton';
 import { useNavigation } from '@react-navigation/native';
+
+import IconButton from '@components/iconButton';
+import { AlbumCover, PlaylistCover } from '@assets/images';
+import { IconFamily, LibraryType } from '@constants';
+
+import ThemedStyles from './styles';
 
 const InfoSection = ({
   type,
@@ -23,9 +24,7 @@ const InfoSection = ({
 }) => {
   const navigation = useNavigation<DetailsScreenParamList>();
 
-  const { theme, dimensions } = useContext(SettingsContext);
-
-  const styles = ThemedStyles(theme, dimensions);
+  const styles = ThemedStyles();
 
   const defaultImage = useMemo(() => {
     switch (type) {
