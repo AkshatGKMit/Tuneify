@@ -12,6 +12,8 @@
       "@navigation/*": ["src/navigation/*"],
       "@network/*": ["src/network/*"],
       "@screens/*": ["src/screens/*"],
+      "@store": ["src/store"],
+      "@store/*": ["src/store/*"],
       "@themes": ["src/themes"],
       "@themes/*": ["src/themes/*"],
       "@utility/*": ["src/utility/*"]
