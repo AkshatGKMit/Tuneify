@@ -4,6 +4,8 @@ import Toast from 'react-native-toast-message';
 import ApiConstants from '@network/apiConstants';
 import { _postAccount } from '@network/instanceMethods';
 import StorageManager, { StorageKey } from '@utility/storage';
+import instance from '@network/instance';
+import { InternalAxiosRequestConfig } from 'axios';
 
 const defaultValue: TokenContextValues = {
   accessToken: '',
@@ -12,6 +14,8 @@ const defaultValue: TokenContextValues = {
   loading: true,
   loadingProcessInfo: '',
   navigateToLogin: null,
+  login: () => {},
+  logout: () => {},
 };
 
 const TokenContext = createContext<TokenContextValues>(defaultValue);
@@ -36,7 +40,9 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
     setLoading(true);
     setLoadingProcessInfo('Fetching Token');
     const {
-      accountData: { grantType },
+      data: {
+        account: { grantType },
+      },
       endpoints: {
         account: { requestAccessToken },
       },
@@ -60,7 +66,9 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
     }
 
     const { access_token, expires_in, token_type } = response.responseData;
-    saveAccessToken(`${token_type} ${access_token}`, expires_in);
+    const newToken = `${token_type} ${access_token}`;
+    saveAccessToken(newToken, expires_in);
+    setTokenInInterceptor(newToken);
 
     setLoading(false);
   };
@@ -86,10 +94,14 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
     setRefreshToken(storedRefreshToken);
 
     setNavigatorToLogin(!storedRefreshToken);
-    if (!storedRefreshToken) return;
+    if (!storedRefreshToken) {
+      setLoading(false);
+      return;
+    }
 
     const storedAccessToken = (await StorageManager.getStoreValue<string>(accessTokenKey)) ?? '';
     setAccessToken(storedAccessToken);
+    setTokenInInterceptor(storedAccessToken);
 
     const storedExpiresIn = (await StorageManager.getStoreValue<string>(tokenExpiresInKey)) ?? '';
     updateTokenExpirationTimer(storedExpiresIn);
@@ -102,7 +114,7 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
   }, []);
 
   useEffect(() => {
-    if (refreshToken && timeLeft <= 0) {
+    if (refreshToken !== '' && timeLeft <= 0) {
       getAccessToken(refreshToken);
     }
 
@@ -116,6 +128,7 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
   //* Save data to Storage
   const saveAccessToken = async (token: string, expiresIn: number) => {
     setAccessToken(token);
+    setTokenInInterceptor(token);
     await StorageManager.saveStoreValue(StorageKey.accessToken, JSON.stringify(token));
 
     const now = new Date();
@@ -129,6 +142,29 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
     await StorageManager.saveStoreValue(StorageKey.refreshToken, JSON.stringify(token));
   };
 
+  const setTokenInInterceptor = (token: string) => {
+    // instance.interceptors.request.clear();
+    // instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+    //   config.headers.Authorization = token;
+    //   return config;
+    // });
+  };
+
+  const login = () => {
+    setNavigatorToLogin(false);
+  };
+
+  const logout = async () => {
+    setRefreshToken('');
+    await StorageManager.saveStoreValue(StorageKey.refreshToken, '');
+
+    setNavigatorToLogin(true);
+    setAccessToken('');
+    setTimeLeft(1000000);
+    await StorageManager.saveStoreValue(StorageKey.accessToken, '');
+    await StorageManager.saveStoreValue(StorageKey.tokenExpiresIn, '');
+  };
+
   const contextValues: TokenContextValues = {
     accessToken,
     saveAccessToken,
@@ -136,6 +172,8 @@ export const TokenContextProvider = ({ children }: ContextProviderProps) => {
     loading,
     loadingProcessInfo,
     navigateToLogin,
+    login,
+    logout,
   };
 
   return (

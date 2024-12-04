@@ -1,46 +1,61 @@
 import { useContext, useMemo } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
+import { AlbumCover, ArtistCover, PlaylistCover, TrackCover } from '@assets/images';
 import SettingsContext from '@config/SettingsContext';
-
 import { countFollowers, formatDuration } from '@utility/helpers';
-
-import { LibraryType } from '@constants';
+import { LibraryType, NavigationRoutes } from '@constants';
 
 import ThemedStyles from './styles';
 
 const LibraryCard = ({ type, library }: LibraryCardProps) => {
+  const navigation = useNavigation<StackNavigation>();
+
   const { theme, dimensions } = useContext(SettingsContext);
 
   const styles = ThemedStyles(theme, dimensions);
 
-  const [title, subtitle, image] = useMemo(() => {
+  const [title, subtitle, image, defaultImage, onPress] = useMemo(() => {
+    const onPress = () => {
+      navigation.push(NavigationRoutes.Details, { type, id: library.id });
+    };
+
     switch (type) {
       case LibraryType.album: {
-        const { name, images, label } = library as Album;
+        const { name, images, label, tracksCount } = library as Album;
         const imageUrl = images[0]?.url || '';
-        return [name, label, imageUrl];
+        const subtitle = tracksCount ? `${tracksCount} Tracks` : label;
+        return [name, subtitle, imageUrl, AlbumCover, onPress];
       }
       case LibraryType.artist: {
         const { name, images, followers } = library as Artist;
         const imageUrl = images[0]?.url || '';
         const followerCount = countFollowers(followers);
-        return [name, followerCount, imageUrl];
+        return [name, followerCount, imageUrl, ArtistCover, onPress];
       }
       case LibraryType.playlist: {
         const { name, images, tracks, followers } = library as Playlist;
         const imageUrl = images[0]?.url || '';
         const followersCount = countFollowers(followers);
-        const trackCount = tracks?.items.length || 0;
+        const trackCount = tracks?.total || 0;
         const subtitle = trackCount > 0 ? `${trackCount} Tracks` : `${followersCount}`;
-        return [name, subtitle, imageUrl];
+        return [name, subtitle, imageUrl, PlaylistCover, onPress];
       }
       case LibraryType.track: {
         const { name, duration, image } = library as Track;
-        const imageUrl = image.url || '';
+        const imageUrl = image?.url || '';
         const subtitle = formatDuration(duration);
-        return [name, subtitle, imageUrl];
+        return [
+          name,
+          subtitle,
+          imageUrl,
+          TrackCover,
+          () => {
+            navigation.navigate(NavigationRoutes.ComingSoon);
+          },
+        ];
       }
       default:
         return ['', '', ''];
@@ -53,8 +68,12 @@ const LibraryCard = ({ type, library }: LibraryCardProps) => {
   ];
 
   return (
-    <View style={styles.card}>
+    <Pressable
+      style={styles.card}
+      onPress={onPress}
+    >
       <FastImage
+        defaultSource={defaultImage}
         source={{ uri: image }}
         style={imageStyles}
       />
@@ -72,7 +91,7 @@ const LibraryCard = ({ type, library }: LibraryCardProps) => {
       >
         {subtitle}
       </Text>
-    </View>
+    </Pressable>
   );
 };
 

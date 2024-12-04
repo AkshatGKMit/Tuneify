@@ -11,7 +11,7 @@ const defaultValue: SettingsContextValues = {
   theme: ThemeColorModes.light,
   switchTheme: () => {},
   isDark: false,
-  font: Fonts.LovelyMamma,
+  font: Fonts.default,
   changeFont: () => {},
 };
 
@@ -40,12 +40,13 @@ export const SettingsContextProvider = ({ children }: ContextProviderProps) => {
   };
 
   const switchTheme = async (themeMode: ThemeModeType) => {
-    setTheme(ThemeColorModes[themeMode]);
+    setTheme((prev) => ({ ...ThemeColorModes[themeMode], font: prev.font }));
     setIsDark(themeMode === ThemeMode.dark);
-    StorageManager.saveStoreValue(StorageKey.theme, JSON.stringify(themeMode));
+    await StorageManager.saveStoreValue(StorageKey.theme, JSON.stringify(themeMode));
   };
 
   const changeFont = async (font: Font) => {
+    setTheme((prev) => ({ ...prev, font }));
     setFont(font);
     StorageManager.saveStoreValue(StorageKey.font, JSON.stringify(font));
   };
@@ -55,12 +56,11 @@ export const SettingsContextProvider = ({ children }: ContextProviderProps) => {
       (await StorageManager.getStoreValue<ThemeModeType>(StorageKey.theme)) ??
       colorScheme ??
       'light';
-    setTheme(ThemeColorModes[storedThemeMode]);
     setIsDark(storedThemeMode === ThemeMode.dark);
 
-    const storedFont =
-      (await StorageManager.getStoreValue<Font>(StorageKey.font)) ?? Fonts.LovelyMamma;
+    const storedFont = (await StorageManager.getStoreValue<Font>(StorageKey.font)) ?? defaultFont;
     setFont(storedFont);
+    setTheme({ ...ThemeColorModes[storedThemeMode], font: storedFont });
   };
 
   useEffect(() => {

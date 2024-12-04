@@ -31,5 +31,7 @@ declare global {
     loading: boolean;
     loadingProcessInfo: string;
     navigateToLogin: null | boolean;
+    login: () => void;
+    logout: () => void;
   }
 }

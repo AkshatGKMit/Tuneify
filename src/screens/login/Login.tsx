@@ -24,7 +24,7 @@ import ThemedStyles from './styles';
 
 const Login = () => {
   const { theme, isDark, dimensions } = useContext(SettingsContext);
-  const { saveAccessToken, saveRefreshToken } = useContext(TokenContext);
+  const { saveAccessToken, saveRefreshToken, login } = useContext(TokenContext);
 
   const [loading, setLoading] = useState(false);
   const [loadingProcessInfo, setLoadingProcessInfo] = useState('');
@@ -35,14 +35,14 @@ const Login = () => {
   const {
     CLIENT_ID,
     ACCOUNT_BASE_URL,
-    accountData,
+    data,
     endpoints: { account: accountEndpoints },
   } = ApiConstants;
 
   const getUserAuthorization = async () => {
     setLoading(true);
     setLoadingProcessInfo('Authorizing User');
-    const { redirectUrl, authorizationScope, authResponseType } = accountData;
+    const { redirectUrl, authorizationScope, authResponseType } = data.account;
     const { requestAuthorization: requestAuthorizationEndpoint } = accountEndpoints;
 
     const state = generateRandomString(16);
@@ -76,7 +76,7 @@ const Login = () => {
     const {
       grantType: { code: codeGrantType },
       redirectUrl,
-    } = accountData;
+    } = data.account;
 
     const body: RequestAccessTokenBody = {
       grant_type: codeGrantType,
@@ -101,6 +101,7 @@ const Login = () => {
     saveRefreshToken(refresh_token);
 
     setLoading(false);
+    login();
   };
 
   const handleDeepLink = ({ url }: { url: string }) => {

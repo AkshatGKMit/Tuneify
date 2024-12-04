@@ -21,6 +21,7 @@ const ThemedStyles = (theme: ThemeColors) => {
       processInfo: {
         color: theme.screenBGColor,
         fontSize: FontSize.labelMedium,
+        fontFamily: theme.font,
       },
     });
   }, [theme]);

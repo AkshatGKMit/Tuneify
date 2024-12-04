@@ -80,7 +80,7 @@ const CustomToast = () => {
   return (
     <Toast
       position="bottom"
-      visibilityTime={3}
+      visibilityTime={3000}
       bottomOffset={height / 10}
       config={toastConfig}
     />

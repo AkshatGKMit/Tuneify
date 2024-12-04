@@ -10,17 +10,18 @@ interface Album {
   name: string;
   images: Images;
   spotifyUrl: string;
-  popularity: number;
-  label: string;
+  label?: string;
+  popularity?: number;
   artists?: Artists;
   genres?: StringList;
   tracksCount?: number;
+  artists?: Artists;
   tracks?: {
-    href: string;
-    limit: number;
-    nextPage: string;
-    offset: number;
-    previousPage: string;
+    href?: string;
+    limit?: number;
+    nextPage?: string;
+    offset?: number;
+    previousPage?: string;
     total: number;
     items: Tracks;
   };
@@ -55,19 +56,18 @@ interface Playlist {
   id: string;
   name: string;
   images: Images;
-  public: boolean;
   description?: string | null;
   spotifyUrl?: string;
   followers?: number;
   snapshotId?: string;
   tracks?: {
-    href: string;
-    limit: number;
-    nextPage: string;
-    offset: number;
-    previousPage: string;
+    href?: string;
+    limit?: number;
+    nextPage?: string;
+    offset?: number;
+    previousPage?: string;
     total: number;
-    items: Tracks;
+    items?: Tracks;
   };
   uri?: string;
 }
@@ -77,13 +77,15 @@ interface Track {
   id: string;
   name: string;
   duration: number;
-  spotifyUrl: string;
   isPlayable: boolean;
   popularity: number;
+  spotifyUrl?: string;
   previewUrl?: string;
   uri: string;
-  image: Image;
+  image?: Image;
   album?: Album;
   artists?: Artists;
 }
 type Tracks = Track[];
+
+type Library = Album | Artist | Playlist | Track;

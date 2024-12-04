@@ -21,3 +21,20 @@ export const LibraryType = {
   playlist: 'playlist',
   track: 'track',
 } as const;
+
+export const NavigationRoutes = {
+  Home: 'Home',
+  Details: 'Details',
+  Favorites: 'Favorites',
+  Settings: 'Settings',
+  ComingSoon: 'ComingSoon',
+} as const;
+
+export const Sizes = {
+  headerHeight: 50,
+};
+
+export const ErrorBoundaryErrors = {
+  unexpected: 'Unexpected Error Occurred',
+  noInternetConnection: 'No Internet Connection',
+};
