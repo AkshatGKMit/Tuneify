@@ -1,5 +1,6 @@
 import { Linking } from 'react-native';
 import { ActionReducerMapBuilder, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { isIos, STORAGE_KEY, STORE_CONSTANTS } from '@constants';
 import ApiConstants from '@network/apiConstants';
@@ -18,12 +19,14 @@ const {
 } = endpoints.account;
 
 const initialState: AuthState = {
+  splashLoading: true,
   loading: false,
+  loadingProcess: '',
   isAuthorize: false,
 };
 
 export const fetchTokenFromStorage = createAsyncThunk(thunk.FETCH_TOKEN_FROM_STORAGE, async () => {
-  const refreshToken = await StorageManager.getStoreValue<string>(STORAGE_KEY.REFRESH_TOKEN);
+  const refreshToken = await AsyncStorage.getItem(STORAGE_KEY.REFRESH_TOKEN);
 
   if (!refreshToken) throw new Error('');
 });
@@ -73,37 +76,43 @@ export const logout = createAsyncThunk(thunk.LOGOUT, async () => {
 });
 
 const extraReducerBuilder = ({ addCase }: ActionReducerMapBuilder<AuthState>) => {
-  addCase(fetchTokenFromStorage.pending, (state) => {
-    state.loading = true;
-  });
   addCase(fetchTokenFromStorage.rejected, (state) => {
-    state.loading = false;
+    state.splashLoading = false;
   });
   addCase(fetchTokenFromStorage.fulfilled, (state) => {
-    state.loading = false;
     state.isAuthorize = true;
+    state.splashLoading = false;
   });
 
   addCase(authorizeUser.pending, (state) => {
     state.loading = true;
+    state.loadingProcess = 'Authorizing.......';
   });
   addCase(authorizeUser.rejected, (state, actions) => {
     state.error = actions.error;
+
     state.loading = false;
+    state.loadingProcess = '';
   });
   addCase(authorizeUser.fulfilled, (state) => {
     state.loading = false;
+    state.loadingProcess = '';
   });
 
   addCase(requestAccessTokenViaCode.pending, (state) => {
     state.loading = true;
+    state.loadingProcess = 'Logging In.......';
   });
   addCase(requestAccessTokenViaCode.rejected, (state, actions) => {
     state.error = actions.error;
+
     state.loading = false;
+    state.loadingProcess = '';
   });
   addCase(requestAccessTokenViaCode.fulfilled, (state, actions) => {
     state.loading = false;
+    state.loadingProcess = '';
+
     state.isAuthorize = true;
   });
 

@@ -18,10 +18,8 @@ import { displayName as appName } from '../../../app.json';
 import ThemedStyles from './styles';
 
 const Login = () => {
-  const { loading, error } = useAppSelector(({ user }) => user);
+  const { loading, loadingProcess, error } = useAppSelector(({ user }) => user);
   const dispatch = useAppDispatch();
-
-  const [loadingProcessInfo] = useState('');
 
   const globalStyles = GlobalThemedStyles();
   const styles = ThemedStyles();
@@ -31,11 +29,10 @@ const Login = () => {
       searchParams: { code },
     } = parseUrl<AuthCodeResponseUrlType>(url);
 
-    const response = await dispatch(requestAccessTokenViaCode(code));
+    const { meta, payload } = await dispatch(requestAccessTokenViaCode(code));
 
-    if (response.meta.requestStatus === REQUEST_STATUS.FULFILLED) {
-      const { access_token, refresh_token, token_type } =
-        response.payload as AuthAccessTokenResponse;
+    if (meta.requestStatus === REQUEST_STATUS.FULFILLED) {
+      const { access_token, refresh_token, token_type } = payload as AuthAccessTokenResponse;
 
       const accessToken = `${token_type} ${access_token}`;
 
@@ -89,7 +86,7 @@ const Login = () => {
       </View>
       <View style={styles.emptyView} />
 
-      {loading ? <LoadingView processInfo={loadingProcessInfo} /> : null}
+      {loading ? <LoadingView processInfo={loadingProcess} /> : null}
     </GradientScreen>
   );
 };

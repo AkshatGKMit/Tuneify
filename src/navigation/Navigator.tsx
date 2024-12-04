@@ -1,10 +1,15 @@
 import Login from '@screens/login/Login';
+import Splash from '@screens/splash/Splash';
 import { useAppSelector } from '@store';
 
 import StackNavigator from './StackNavigator';
 
 const Navigator = () => {
-  const { isAuthorize } = useAppSelector(({ user }) => user);
+  const { splashLoading, isAuthorize } = useAppSelector(({ user }) => user);
+
+  if (splashLoading) {
+    return <Splash />;
+  }
 
   return !isAuthorize ? <Login /> : <StackNavigator />;
 };
