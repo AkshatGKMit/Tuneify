@@ -11,7 +11,7 @@ import { ErrorBoundaryErrors } from '@constants';
 import Navigator from '@navigation/Navigator';
 import store, { useAppDispatch } from '@store';
 import { switchTheme } from '@store/reducers/theme';
-import { fetchTokenFromStorage } from '@store/reducers/auth';
+import { fetchRefreshTokenFromStorage } from '@store/reducers/auth';
 import { GlobalThemedStyles, ThemeMode } from '@themes';
 
 const App = () => {
@@ -67,7 +67,7 @@ const Main = () => {
   }, [colorScheme]);
 
   useEffect(() => {
-    dispatch(fetchTokenFromStorage());
+    dispatch(fetchRefreshTokenFromStorage());
   }, []);
 
   return (

@@ -2,7 +2,7 @@ import { Linking } from 'react-native';
 import { ActionReducerMapBuilder, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { isIos, STORAGE_KEY, STORE_CONSTANTS } from '@constants';
+import { isIos, REQUEST_STATUS, STORAGE_KEY, STORE_CONSTANTS } from '@constants';
 import ApiConstants from '@network/apiConstants';
 import { _postAccount } from '@network/instanceMethods';
 import { appendSearchParams, generateRandomString } from '@utility/helpers';
@@ -21,15 +21,18 @@ const {
 const initialState: AuthState = {
   splashLoading: true,
   loading: false,
-  loadingProcess: '',
+  loadingProcessInfo: '',
   isAuthorize: false,
 };
 
-export const fetchTokenFromStorage = createAsyncThunk(thunk.FETCH_TOKEN_FROM_STORAGE, async () => {
-  const refreshToken = await AsyncStorage.getItem(STORAGE_KEY.REFRESH_TOKEN);
+export const fetchRefreshTokenFromStorage = createAsyncThunk(
+  thunk.FETCH_TOKEN_FROM_STORAGE,
+  async () => {
+    const refreshToken = await AsyncStorage.getItem(STORAGE_KEY.REFRESH_TOKEN);
 
-  if (!refreshToken) throw new Error('');
-});
+    if (!refreshToken) throw new Error();
+  },
+);
 
 export const authorizeUser = createAsyncThunk(thunk.AUTHORIZATION, async () => {
   const searchParams: UserAuthorizationParams = {
@@ -40,7 +43,7 @@ export const authorizeUser = createAsyncThunk(thunk.AUTHORIZATION, async () => {
     state: generateRandomString(16),
   };
 
-  const url = new URL(requestAuthorizationEndpoint, ACCOUNT_BASE_URL + 'hh');
+  const url = new URL(requestAuthorizationEndpoint, ACCOUNT_BASE_URL);
   appendSearchParams<UserAuthorizationParams>(url, searchParams);
 
   const urlString = url.toString();
@@ -52,7 +55,7 @@ export const authorizeUser = createAsyncThunk(thunk.AUTHORIZATION, async () => {
   }
 });
 
-export const requestAccessTokenViaCode = createAsyncThunk(
+const requestAccessTokenViaCode = createAsyncThunk(
   thunk.REQUEST_ACCESS_TOKEN,
   async (code: string) => {
     const body: RequestAccessTokenBody = {
@@ -70,52 +73,78 @@ export const requestAccessTokenViaCode = createAsyncThunk(
   },
 );
 
+export const requestAccessTokenAndSave = createAsyncThunk(
+  thunk.SAVE_TOKEN_IN_STORAGE,
+  async (code: string, { dispatch }) => {
+    const accessTokenResponse = await dispatch(requestAccessTokenViaCode(code));
+
+    const { meta: actionMeta, payload } = accessTokenResponse;
+
+    if (actionMeta.requestStatus === REQUEST_STATUS.FULFILLED) {
+      const { access_token, refresh_token, token_type } = payload as AuthAccessTokenResponse;
+
+      const accessToken = `${token_type} ${access_token}`;
+
+      await StorageManager.saveStoreValue(STORAGE_KEY.REFRESH_TOKEN, refresh_token);
+      await StorageManager.saveStoreValue(STORAGE_KEY.ACCESS_TOKEN, accessToken);
+    }
+
+    return accessTokenResponse;
+  },
+);
+
 export const logout = createAsyncThunk(thunk.LOGOUT, async () => {
   await StorageManager.saveStoreValue(STORAGE_KEY.REFRESH_TOKEN, '');
   await StorageManager.saveStoreValue(STORAGE_KEY.ACCESS_TOKEN, '');
 });
 
 const extraReducerBuilder = ({ addCase }: ActionReducerMapBuilder<AuthState>) => {
-  addCase(fetchTokenFromStorage.rejected, (state) => {
+  //* Case: Fetch Refresh Token from Storage
+  addCase(fetchRefreshTokenFromStorage.rejected, (state) => {
     state.splashLoading = false;
   });
-  addCase(fetchTokenFromStorage.fulfilled, (state) => {
+  addCase(fetchRefreshTokenFromStorage.fulfilled, (state) => {
     state.isAuthorize = true;
     state.splashLoading = false;
   });
 
+  //* Case: User Authorization
   addCase(authorizeUser.pending, (state) => {
     state.loading = true;
-    state.loadingProcess = 'Authorizing.......';
+    state.loadingProcessInfo = 'Authorizing.......';
   });
   addCase(authorizeUser.rejected, (state, actions) => {
     state.error = actions.error;
 
     state.loading = false;
-    state.loadingProcess = '';
+    state.loadingProcessInfo = '';
   });
   addCase(authorizeUser.fulfilled, (state) => {
     state.loading = false;
-    state.loadingProcess = '';
+    state.loadingProcessInfo = '';
   });
 
+  //* Case: Requesting Access Token
   addCase(requestAccessTokenViaCode.pending, (state) => {
     state.loading = true;
-    state.loadingProcess = 'Logging In.......';
+    state.loadingProcessInfo = 'Logging In.......';
   });
   addCase(requestAccessTokenViaCode.rejected, (state, actions) => {
     state.error = actions.error;
 
     state.loading = false;
-    state.loadingProcess = '';
+    state.loadingProcessInfo = '';
   });
-  addCase(requestAccessTokenViaCode.fulfilled, (state, actions) => {
+
+  //* Case: Saving Tokens in Storage
+  addCase(requestAccessTokenAndSave.fulfilled, (state) => {
     state.loading = false;
-    state.loadingProcess = '';
+    state.loadingProcessInfo = '';
 
     state.isAuthorize = true;
   });
 
+  //* Case: Logout
   addCase(logout.fulfilled, (state) => {
     state.isAuthorize = false;
   });

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { View, Text, Image, Linking, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
 
@@ -9,17 +9,25 @@ import LoadingView from '@components/loadingView';
 import { IconFamily, REQUEST_STATUS, STORAGE_KEY } from '@constants';
 import { _post, _postAccount } from '@network/instanceMethods';
 import { useAppDispatch, useAppSelector } from '@store';
-import { authorizeUser, requestAccessTokenViaCode } from '@store/reducers/auth';
+import { authorizeUser, requestAccessTokenAndSave } from '@store/reducers/auth';
 import { GlobalThemedStyles } from '@themes';
 import { parseUrl } from '@utility/helpers';
-import StorageManager from '@utility/storage';
 
 import { displayName as appName } from '../../../app.json';
 import ThemedStyles from './styles';
 
 const Login = () => {
-  const { loading, loadingProcess, error } = useAppSelector(({ user }) => user);
   const dispatch = useAppDispatch();
+
+  const { loading, loadingProcessInfo } = useAppSelector(({ user }) => {
+    const { error } = user;
+    if (error) {
+      const { code, message } = error;
+      Toast.show({ text1: `Error ${code}`, text2: message, type: 'error' });
+    }
+
+    return user;
+  });
 
   const globalStyles = GlobalThemedStyles();
   const styles = ThemedStyles();
@@ -29,16 +37,7 @@ const Login = () => {
       searchParams: { code },
     } = parseUrl<AuthCodeResponseUrlType>(url);
 
-    const { meta, payload } = await dispatch(requestAccessTokenViaCode(code));
-
-    if (meta.requestStatus === REQUEST_STATUS.FULFILLED) {
-      const { access_token, refresh_token, token_type } = payload as AuthAccessTokenResponse;
-
-      const accessToken = `${token_type} ${access_token}`;
-
-      await StorageManager.saveStoreValue(STORAGE_KEY.REFRESH_TOKEN, refresh_token);
-      await StorageManager.saveStoreValue(STORAGE_KEY.ACCESS_TOKEN, accessToken);
-    }
+    dispatch(requestAccessTokenAndSave(code));
   };
 
   useEffect(() => {
@@ -49,12 +48,9 @@ const Login = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (error) {
-      const { code, message } = error;
-      Toast.show({ text1: `Error ${code}`, text2: message, type: 'error' });
-    }
-  }, [error]);
+  const _onPressSignIn = () => {
+    dispatch(authorizeUser());
+  };
 
   return (
     <GradientScreen>
@@ -71,7 +67,7 @@ const Login = () => {
 
         <TouchableOpacity
           style={[globalStyles.rowCenter, styles.signInButton]}
-          onPress={() => dispatch(authorizeUser())}
+          onPress={_onPressSignIn}
           activeOpacity={0.85}
         >
           <>
@@ -86,7 +82,7 @@ const Login = () => {
       </View>
       <View style={styles.emptyView} />
 
-      {loading ? <LoadingView processInfo={loadingProcess} /> : null}
+      {loading ? <LoadingView processInfo={loadingProcessInfo} /> : null}
     </GradientScreen>
   );
 };

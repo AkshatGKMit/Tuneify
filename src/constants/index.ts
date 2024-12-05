@@ -16,6 +16,7 @@ export const STORE_CONSTANTS = {
       AUTHORIZATION: 'authorization',
       REQUEST_ACCESS_TOKEN: 'request_access_token',
       LOGOUT: 'logout',
+      SAVE_TOKEN_IN_STORAGE: 'save_token_in_storage',
     },
   },
 } as const;
