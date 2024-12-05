@@ -1,18 +1,18 @@
 import { useEffect } from 'react';
 import { Linking, LogBox, SafeAreaView, useColorScheme } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import ErrorBoundary from '@config/ErrorBoundary';
 import CustomToast from '@config/customToast';
-import { TokenContextProvider } from '@config/TokenContext';
 import { ErrorBoundaryErrors } from '@constants';
 import Navigator from '@navigation/Navigator';
-import { GlobalThemedStyles, ThemeMode } from '@themes';
 import store, { useAppDispatch } from '@store';
 import { switchTheme } from '@store/reducers/theme';
+import { fetchRefreshTokenFromStorage } from '@store/reducers/auth';
+import { GlobalThemedStyles, ThemeMode } from '@themes';
 
 const App = () => {
   useEffect(() => {
@@ -21,13 +21,11 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <ErrorBoundary>
-        <SafeAreaProvider>
-          <TokenContextProvider>
-            <Main />
-          </TokenContextProvider>
-        </SafeAreaProvider>
-      </ErrorBoundary>
+      <SafeAreaProvider>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </SafeAreaProvider>
     </Provider>
   );
 };
@@ -67,6 +65,10 @@ const Main = () => {
   useEffect(() => {
     dispatch(switchTheme(colorScheme ?? ThemeMode.light));
   }, [colorScheme]);
+
+  useEffect(() => {
+    dispatch(fetchRefreshTokenFromStorage());
+  }, []);
 
   return (
     <>

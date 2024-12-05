@@ -13,8 +13,6 @@ declare global {
     width: number;
   }
 
-  type StorageKeyType = keyof typeof StorageKey;
-
   interface TokenContextValues {
     accessToken: string;
     saveAccessToken: (token: string, expiresIn: number) => void;

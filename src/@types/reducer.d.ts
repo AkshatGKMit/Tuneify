@@ -3,3 +3,11 @@ interface ThemeState {
   colors: ThemeColors;
   isDark: boolean;
 }
+
+interface AuthState {
+  splashLoading: boolean;
+  loading: boolean;
+  loadingProcess: string;
+  isAuthorize: boolean;
+  error?: Partial<ApiCallError>;
+}
